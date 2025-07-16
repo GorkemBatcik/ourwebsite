@@ -25,3 +25,19 @@ function sayaçGuncelle() {
 }
 
 sayaçGuncelle();
+
+// Not defteri fonksiyonu
+const notDefteri = document.getElementById("notDefteri");
+const notKaydet = document.getElementById("notKaydet");
+
+// Sayfa açıldığında kaydedilmiş notu göster
+if (localStorage.getItem("kullaniciNotu")) {
+  notDefteri.value = localStorage.getItem("kullaniciNotu");
+}
+
+// Kaydet butonuna tıklanınca notu sakla
+notKaydet.addEventListener("click", function () {
+  localStorage.setItem("kullaniciNotu", notDefteri.value);
+  notKaydet.textContent = "Kaydedildi!";
+  setTimeout(() => { notKaydet.textContent = "Kaydet"; }, 1200);
+});
