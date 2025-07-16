@@ -142,35 +142,21 @@
   </section>
 
   <!-- 3. ŞİİRLER -->
-  <section class="poems">
-    <h2>Berilişko Şiirleri</h2>
+<section class="poems" id="siirSayfasi">
+  <h2 class="poem-title">Berilişko Şiirleri</h2>
 
-    <div class="poem">
-      <h3>SEN BENDEYKEN</h3>
-      <p>
-        Yıldızlar düşerken gökyüzünden, durmadan dönerken dünya<br>
-        Bırak beni kaybolayım dudaklarında<br>
-        Aktıkça zaman, bedenlerimiz karışsın<br>
-        İzin ver kalayım sonsuzluğunda<br>
-        Sarıl bana sıkı sıkı, kokunu ruhumda duyayım<br>
-        Tersine dönerken evren, en güzel facian olayım<br>
-        Bir bakışta kalp atışlarımız yarışsın<br>
-        Ve seninle ebedi düşler kurayım
-      </p>
-    </div>
+  <div id="siirGrid"></div>
 
-    <div class="poem">
-      <h3>DÜŞLERİMDEN GÜZEL</h3>
-      <p>
-        Titriyorum, sıcaklığın örtemediğinde beni<br>
-        Vücudumu bir türlü saramayan, o kısa battaniye misali<br>
-        Düşlerimden bile güzelken sen<br>
-        Uykularımın hüsranı deliyor içimi<br>
-        Kaybolurken bataklığında, arıyorum çamur rengi gözlerini<br>
-        Tutkuyla çakıldın kalbime, sökmeye niyetlenmediğim bir çivi gibi.
-      </p>
-    </div>
-  </section>
+  <div class="ekle-alani">
+  <button class="form-ac-button" onclick="formuGoster()">+ Yeni Şiir Ekle</button>
+
+  <div id="siirFormu" class="siir-form-kutu" style="display: none;">
+    <input type="text" id="siirBaslik" placeholder="Şiir Başlığı">
+    <textarea id="siirIcerik" placeholder="Şiirini buraya yaz..."></textarea>
+    <button class="kaydet-btn" onclick="siirEkle()">Kaydet</button>
+  </div>
+</div>
+</section>
 
   <!-- 4. FOTO 3 -->
   <section class="full-image" style="background-image: url('/Users/gorkembatcik/Documents/Websitemiz/ourwebsite/fotolar/foto3.jpeg');">

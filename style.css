@@ -121,25 +121,149 @@ button:hover {
 
 /* 3. Şiirler */
 .poems {
-  background-color: #fff0f5;
-  color: #333;
-  padding: 60px 20px;
+  background: #fffdf8;
+  padding: 60px 40px;
+}
+
+.poem-title {
+  text-align: left;
+  font-size: 32px;
+  color: #d6336c;
+  margin-bottom: 40px;
+}
+
+/* Şiir ızgarası */
+#siirGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 20px;
+  row-gap: 30px;
+}
+
+/* Şiir kutuları sabit ve dinamik için ortak */
+.poem {
+  background: #fff;
+  border-left: 6px solid #ffd6e0;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  position: relative;
+  word-wrap: break-word;
+  min-height: 220px;
+}
+
+.poem h3 {
+  margin-top: 0;
+  color: #b1004b;
+}
+
+.poem button.silButonu {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #ffc9c9;
+  color: #800000;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.poem button.silButonu:hover {
+  background: #ff8c8c;
+}
+.poem button.duzenleButonu {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: #cce5ff;
+  color: #004085;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.poem button.duzenleButonu:hover {
+  background: #99ccff;
+}
+.ekle-alani {
+  margin-top: 60px;
+  text-align: center;
+}
+
+/* Yeni şiir ekle butonu */
+.form-ac-button {
+  background-color: #ff66a8;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, background-color 0.2s;
+}
+
+.form-ac-button:hover {
+  background-color: #e24d91;
+  transform: scale(1.03);
+}
+
+/* Şiir form kutusu */
+.siir-form-kutu {
+  margin: 30px auto 0 auto;
+  padding: 24px;
+  background: linear-gradient(135deg, #fff0f5, #ffeef8);
+  border-radius: 16px;
+  max-width: 600px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  height: auto;
-  min-height: 100vh;
+  gap: 16px;
 }
 
-.poem {
-  max-width: 600px;
-  background: white;
-  padding: 20px;
+/* Giriş alanları */
+.siir-form-kutu input,
+.siir-form-kutu textarea {
+  padding: 14px 16px;
   border-radius: 10px;
-  margin: 20px 0;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  border: 1px solid #ffd6e0;
+  font-size: 1rem;
+  font-family: inherit;
+  background-color: #fff;
+  resize: vertical;
+  box-shadow: inset 0 1px 4px rgba(0,0,0,0.03);
+  transition: border 0.2s ease;
 }
 
+.siir-form-kutu input:focus,
+.siir-form-kutu textarea:focus {
+  outline: none;
+  border-color: #ff80ab;
+}
+
+/* Kaydet butonu */
+.kaydet-btn {
+  background: linear-gradient(90deg, #ff80ab, #ff4081);
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 14px;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.kaydet-btn:hover {
+  background: #ff4081;
+  transform: scale(1.02);
+}
 /* 4-5. Tam ekran foto */
 .full-image {
   background-size: cover;

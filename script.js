@@ -41,3 +41,88 @@ notKaydet.addEventListener("click", function () {
   notKaydet.textContent = "Kaydedildi!";
   setTimeout(() => { notKaydet.textContent = "Kaydet"; }, 1200);
 });
+
+// Şiirleri yükle (sayfa açıldığında çalışır)
+const baslangicSiirleri = [];
+
+window.onload = function () {
+  if (!localStorage.getItem("siirListesi")) {
+    localStorage.setItem("siirListesi", JSON.stringify(baslangicSiirleri));
+  }
+  siirleriYenidenYaz();
+};
+
+function formuGoster() {
+  const form = document.getElementById("siirFormu");
+  form.style.display = form.style.display === "none" ? "block" : "none";
+}
+
+function siirEkle() {
+  const baslik = document.getElementById("siirBaslik").value.trim();
+  const icerik = document.getElementById("siirIcerik").value.trim();
+
+  if (!baslik || !icerik) {
+    alert("Lütfen şiir başlığı ve içeriğini doldur 🥺");
+    return;
+  }
+
+  const yeniSiir = { baslik, icerik };
+  const siirler = JSON.parse(localStorage.getItem("siirListesi")) || [];
+
+  siirler.push(yeniSiir);
+  localStorage.setItem("siirListesi", JSON.stringify(siirler));
+
+  siirleriYenidenYaz();
+  document.getElementById("siirBaslik").value = "";
+  document.getElementById("siirIcerik").value = "";
+  document.getElementById("siirFormu").style.display = "none";
+}
+
+function siirleriYenidenYaz() {
+  const siirler = JSON.parse(localStorage.getItem("siirListesi")) || [];
+  const grid = document.getElementById("siirGrid");
+  grid.innerHTML = "";
+
+  siirler.forEach((siir, index) => {
+    const yeniDiv = document.createElement("div");
+    yeniDiv.className = "poem";
+
+    const h3 = document.createElement("h3");
+    h3.innerText = siir.baslik;
+
+    const p = document.createElement("p");
+    p.innerHTML = siir.icerik.replace(/\n/g, "<br>");
+
+    const silBtn = document.createElement("button");
+    silBtn.innerText = "Sil";
+    silBtn.className = "silButonu";
+    silBtn.onclick = () => {
+      if (confirm("Bu şiiri silmek istediğine emin misin?😔")) {
+        siirler.splice(index, 1);
+        localStorage.setItem("siirListesi", JSON.stringify(siirler));
+        siirleriYenidenYaz();
+      }
+    };
+
+    const duzenleBtn = document.createElement("button");
+    duzenleBtn.innerText = "Düzenle";
+    duzenleBtn.className = "duzenleButonu";
+    duzenleBtn.onclick = () => {
+      const yeniBaslik = prompt("Yeni başlık:", siir.baslik);
+      const yeniIcerik = prompt("Yeni şiir:", siir.icerik);
+      if (yeniBaslik && yeniIcerik) {
+        siirler[index].baslik = yeniBaslik;
+        siirler[index].icerik = yeniIcerik;
+        localStorage.setItem("siirListesi", JSON.stringify(siirler));
+        siirleriYenidenYaz();
+      }
+    };
+
+    yeniDiv.appendChild(h3);
+    yeniDiv.appendChild(p);
+    yeniDiv.appendChild(silBtn);
+    yeniDiv.appendChild(duzenleBtn);
+
+    grid.appendChild(yeniDiv);
+  });
+}
