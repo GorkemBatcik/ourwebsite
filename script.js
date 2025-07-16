@@ -149,10 +149,58 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const photoInput = document.getElementById("photoUpload");
 
+  // Yeni fonksiyon: silme butonu ekler
+  function addDeleteButtonToImageSection(section, imageUrl) {
+    section.style.position = "relative"; // Silme butonu için gerekli
+
+    const silBtn = document.createElement("button");
+    silBtn.innerText = "×";
+    silBtn.title = "Fotoğrafı sil";
+    silBtn.style.position = "absolute";
+    silBtn.style.top = "8px";
+    silBtn.style.right = "8px";
+    silBtn.style.backgroundColor = "rgba(0,0,0,0.5)";
+    silBtn.style.color = "white";
+    silBtn.style.border = "none";
+    silBtn.style.borderRadius = "50%";
+    silBtn.style.width = "24px";
+    silBtn.style.height = "24px";
+    silBtn.style.fontSize = "18px";
+    silBtn.style.cursor = "pointer";
+    silBtn.style.opacity = "0";
+    silBtn.style.transition = "opacity 0.3s ease, transform 0.3s ease";
+
+    section.addEventListener("mouseenter", () => {
+      silBtn.style.opacity = "1";
+      silBtn.style.transform = "scale(1.3)";
+    });
+    section.addEventListener("mouseleave", () => {
+      silBtn.style.opacity = "0";
+      silBtn.style.transform = "scale(1)";
+    });
+
+    silBtn.addEventListener("click", e => {
+      e.stopPropagation();
+      if (confirm("Bu fotoğrafı silmek istediğine emin misin?☹️")) {
+        // localStorage'dan çıkar
+        let stored = JSON.parse(localStorage.getItem("uploadedPhotos")) || [];
+        stored = stored.filter(url => url !== imageUrl);
+        localStorage.setItem("uploadedPhotos", JSON.stringify(stored));
+        // DOM'dan kaldır
+        section.remove();
+      }
+    });
+
+    section.appendChild(silBtn);
+  }
+
   // Yüklü fotoğrafları localStorage'tan getir ve göster
   const storedPhotos = JSON.parse(localStorage.getItem("uploadedPhotos")) || [];
   storedPhotos.forEach(imageUrl => {
     createAnimatedImageSection(imageUrl);
+    // En son eklenen section öğesini seç (son child)
+    const lastSection = document.body.querySelector("section.animated-image:last-of-type");
+    addDeleteButtonToImageSection(lastSection, imageUrl);
   });
 
   if (photoInput) {
@@ -168,6 +216,8 @@ document.addEventListener("DOMContentLoaded", () => {
           const imageUrl = e.target.result;
 
           createAnimatedImageSection(imageUrl);
+          const lastSection = document.body.querySelector("section.animated-image:last-of-type");
+          addDeleteButtonToImageSection(lastSection, imageUrl);
 
           // Fotoğrafı kaydet
           stored.push(imageUrl);
