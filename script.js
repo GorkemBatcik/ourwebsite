@@ -126,3 +126,21 @@ function siirleriYenidenYaz() {
     grid.appendChild(yeniDiv);
   });
 }
+// Fotoğraf bölümlerini scroll ile görünce animasyon ekle
+document.addEventListener("DOMContentLoaded", () => {
+  const images = document.querySelectorAll(".animated-image");
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
+    });
+  }, {
+    threshold: 0.3
+  });
+
+  images.forEach(img => {
+    observer.observe(img);
+  });
+});

@@ -123,6 +123,8 @@ button:hover {
 .poems {
   background: #fffdf8;
   padding: 60px 40px;
+  min-height: 100vh;
+  height: auto;
 }
 
 .poem-title {
@@ -266,6 +268,28 @@ button:hover {
 }
 /* 4-5. Tam ekran foto */
 .full-image {
+  width: 100vw;
+  height: 100vh;
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+.animated-image {
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transform: scale(1.05);
+  filter: blur(8px);
+  transition: opacity 1.4s ease, transform 1.4s ease, filter 1.4s ease;
+}
+
+.animated-image.visible {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  filter: blur(0) !important;
 }
