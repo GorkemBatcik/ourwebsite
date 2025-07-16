@@ -57,13 +57,34 @@
   </section>
 
   <!-- 2. FOTO + SAYAÇ -->
-  <section class="half-half">
-    <div class="left-image">
-      <img src="/Users/gorkembatcik/Documents/Websitemiz/ourwebsite/fotolar/foto5.jpeg" alt="Fotoğraf 2" />
+  <section class="half-half" style="display: flex; height: 100vh; background: #ffe0f0;">
+    <div class="left-image" style="width: 50%; display: flex; align-items: center; justify-content: center; background: black; height: 100%;">
+      <img src="/Users/gorkembatcik/Documents/Websitemiz/ourwebsite/fotolar/foto5.jpeg"
+           alt="Fotoğraf 2"
+           style="width: 80%; aspect-ratio: 1/1; object-fit: cover; border-radius: 10px; margin-top: 0;" />
     </div>
-    <div class="right-counter">
-      <h2>22 Ekim 2024'ten beri</h2>
-      <p id="sayac">Yükleniyor...</p>
+    <div style="width: 50%; display: flex; align-items: flex-start; justify-content: center; background: #fce4ec; height: 100%; position: relative;">
+      <div style="
+        margin-top: 40px;
+        background: rgba(255, 105, 180, 0.85);
+        color: white;
+        padding: 32px 48px;
+        border-radius: 18px;
+        box-shadow: 0 8px 32px #0005;
+        font-size: 2rem;
+        font-weight: bold;
+        letter-spacing: 1px;
+        border: 2px solid #fff3;
+        backdrop-filter: blur(2px);
+        text-align: center;
+        min-width: 320px;
+        margin-right: 20px;
+      ">
+        <span style="font-size: 1.2rem; font-weight: normal; opacity: 0.8;">Birlikte geçen günlerimiz</span><br>
+        <span id="sayac" style="font-size: 2.5rem; font-weight: 900; letter-spacing: 2px;">Yükleniyor...</span>
+        <div style="margin-top: 8px; font-size: 1rem; opacity: 0.7;">22 Ekim 2024'ten beri</div>
+        <div style="margin-top: 24px; font-size: 2rem; font-weight: 700; color: #fff;">Sana çook aşığım 💖</div>
+      </div>
     </div>
   </section>
 
@@ -105,28 +126,6 @@
   <!-- 5. FOTO 4 -->
   <section class="full-image" style="background-image: url('/Users/gorkembatcik/Documents/Websitemiz/ourwebsite/fotolar/ foto4.jpeg');">
   </section>
-
-  <div style="
-    position: absolute;
-    top: 40px;
-    left: 40px;
-    background: rgba(255, 105, 180, 0.85);
-    color: white;
-    padding: 28px 40px;
-    border-radius: 18px;
-    box-shadow: 0 8px 32px #0005;
-    font-size: 2rem;
-    font-weight: bold;
-    letter-spacing: 1px;
-    border: 2px solid #fff3;
-    backdrop-filter: blur(2px);
-    z-index: 10;
-    text-align: left;
-  ">
-    <span style="font-size: 1.2rem; font-weight: normal; opacity: 0.8;">Birlikte geçen günlerimiz</span><br>
-    <span id="sayac" style="font-size: 2.5rem; font-weight: 900; letter-spacing: 2px;">Yükleniyor...</span>
-    <div style="margin-top: 8px; font-size: 1rem; opacity: 0.7;">22 Ekim 2024'ten beri</div>
-  </div>
 
   <script src="script.js"></script>
 </body>
