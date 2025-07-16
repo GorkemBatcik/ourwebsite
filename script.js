@@ -20,7 +20,6 @@ function tarihFarki(baslangic) {
 function sayaçGuncelle() {
   const baslangicTarihi = new Date("2024-10-22T18:00:00");
   const fark = tarihFarki(baslangicTarihi);
-
   const metin = `${fark.yillar} yıl, ${fark.aylar} ay, ${fark.gunler} gün geçti`;
   document.getElementById("sayac").textContent = metin;
 }

@@ -1,58 +1,82 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Berilişko💞Görkemişko</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
 
-    <h1>Fotoğraf Yükle</h1>
-    <input type="file" id="photoUpload" style="display:none" multiple>
-    <button onclick="document.getElementById('photoUpload').click()">Fotoğraf Yükle</button>
+  <!-- 1. GİRİŞ EKRANI -->
+  <section class="hero">
+    <img src="/Users/gorkembatcik/Documents/Websitemiz/ourwebsite/fotolar/foto1.jpeg" alt="Giriş Foto" class="hero-image" />
 
-    <h2>Berilişko💞Görkemişko</h2>
-    <p class="alt-yazi">Biricik sevdiğime</p>
+    <div class="hero-text sol-ust">
+      <p>Çıktığımız gün</p>
+      <h3>22 Ekim 2024</h3>
+    </div>
 
-    <h3>İlk çıktığımız gün</h3>
-    <p class="dogum">Doğum günün kutlu olsun kelebeğim<br>Seni çooook seviyorum<br>Nice mutu beraber yıllara</p>
+    <div class="hero-text orta-sol">
+      <h1>Berilişko💞Görkemişko</h1>
+      <p>Seni seviyorum</p>
+    </div>
 
-    <div class="kac-gun">
-      <h2>Kaç gün oldu 😱</h2>
-      <p>22 Ekim 2024'ten bu yana:</p>
+    <div class="hero-text sag-alt">
+      <input type="file" id="photoUpload" style="display:none" multiple>
+      <button onclick="document.getElementById('photoUpload').click()">Foto Ekle</button>
+    </div>
+  </section>
+
+  <!-- 2. FOTO + SAYAÇ -->
+  <section class="half-half">
+    <div class="left-image">
+      <img src="/Users/gorkembatcik/Documents/Websitemiz/ourwebsite/fotolar/foto5.jpeg" alt="Fotoğraf 2" />
+    </div>
+    <div class="right-counter">
+      <h2>22 Ekim 2024'ten beri</h2>
       <p id="sayac">Yükleniyor...</p>
     </div>
+  </section>
 
-    <div class="siirler">
-      <h2>Berilişko şiirleri</h2>
+  <!-- 3. ŞİİRLER -->
+  <section class="poems">
+    <h2>Berilişko Şiirleri</h2>
 
-      <div class="siir-blok">
-        <h3>SEN BENDEYKEN</h3>
-        <p>
-          Yıldızlar düşerken gökyüzünden, durmadan dönerken dünya<br>
-          Bırak beni kaybolayım dudaklarında...<br>
-          ...
-        </p>
-      </div>
-
-      <div class="siir-blok">
-        <h3>DÜŞLERİMDEN GÜZEL</h3>
-        <p>
-          Titriyorum, sıcaklığın örtemediğinde beni...<br>
-          ...
-        </p>
-      </div>
+    <div class="poem">
+      <h3>SEN BENDEYKEN</h3>
+      <p>
+        Yıldızlar düşerken gökyüzünden, durmadan dönerken dünya<br>
+        Bırak beni kaybolayım dudaklarında<br>
+        Aktıkça zaman, bedenlerimiz karışsın<br>
+        İzin ver kalayım sonsuzluğunda<br>
+        Sarıl bana sıkı sıkı, kokunu ruhumda duyayım<br>
+        Tersine dönerken evren, en güzel facian olayım<br>
+        Bir bakışta kalp atışlarımız yarışsın<br>
+        Ve seninle ebedi düşler kurayım
+      </p>
     </div>
 
-    <p class="lutfen">LÜTFEN BU GÜZEL ŞİİRLERİNİZDEN MAHRUM BIRAKMAYIN</p>
-
-    <div class="butonlar">
-      <button>Yeni Şiir Yükle</button>
-      <button>Bütün Şiirlerim</button>
+    <div class="poem">
+      <h3>DÜŞLERİMDEN GÜZEL</h3>
+      <p>
+        Titriyorum, sıcaklığın örtemediğinde beni<br>
+        Vücudumu bir türlü saramayan, o kısa battaniye misali<br>
+        Düşlerimden bile güzelken sen<br>
+        Uykularımın hüsranı deliyor içimi<br>
+        Kaybolurken bataklığında, arıyorum çamur rengi gözlerini<br>
+        Tutkuyla çakıldın kalbime, sökmeye niyetlenmediğim bir çivi gibi.
+      </p>
     </div>
+  </section>
 
-  </div>
+  <!-- 4. FOTO 3 -->
+  <section class="full-image" style="background-image: url('/Users/gorkembatcik/Documents/Websitemiz/ourwebsite/fotolar/foto3.jpeg');">
+  </section>
+
+  <!-- 5. FOTO 4 -->
+  <section class="full-image" style="background-image: url('/Users/gorkembatcik/Documents/Websitemiz/ourwebsite/fotolar/ foto4.jpeg');">
+  </section>
+
   <script src="script.js"></script>
 </body>
 </html>
