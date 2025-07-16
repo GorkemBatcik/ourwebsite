@@ -144,3 +144,66 @@ document.addEventListener("DOMContentLoaded", () => {
     observer.observe(img);
   });
 });
+
+// Kullanıcının yüklediği fotoğrafları tam ekran göstermek için:
+document.addEventListener("DOMContentLoaded", () => {
+  const photoInput = document.getElementById("photoUpload");
+
+  // Yüklü fotoğrafları localStorage'tan getir ve göster
+  const storedPhotos = JSON.parse(localStorage.getItem("uploadedPhotos")) || [];
+  storedPhotos.forEach(imageUrl => {
+    createAnimatedImageSection(imageUrl);
+  });
+
+  if (photoInput) {
+    photoInput.addEventListener("change", function (event) {
+      const files = event.target.files;
+      if (!files || files.length === 0) return;
+
+      const stored = JSON.parse(localStorage.getItem("uploadedPhotos")) || [];
+
+      Array.from(files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const imageUrl = e.target.result;
+
+          createAnimatedImageSection(imageUrl);
+
+          // Fotoğrafı kaydet
+          stored.push(imageUrl);
+          localStorage.setItem("uploadedPhotos", JSON.stringify(stored));
+        };
+        reader.readAsDataURL(file);
+      });
+
+      event.target.value = "";
+    });
+  }
+
+  function createAnimatedImageSection(imageUrl) {
+    const newSection = document.createElement("section");
+    newSection.className = "animated-image";
+    newSection.style.backgroundImage = `url('${imageUrl}')`;
+    newSection.style.height = "100vh";
+    newSection.style.width = "100vw";
+    newSection.style.backgroundSize = "cover";
+    newSection.style.backgroundPosition = "center";
+    newSection.style.backgroundRepeat = "no-repeat";
+    newSection.style.opacity = "0";
+    newSection.style.transform = "scale(1.05)";
+    newSection.style.filter = "blur(8px)";
+    newSection.style.transition = "opacity 1.4s ease, transform 1.4s ease, filter 1.4s ease";
+
+    document.body.appendChild(newSection);
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.3 });
+
+    observer.observe(newSection);
+  }
+});
