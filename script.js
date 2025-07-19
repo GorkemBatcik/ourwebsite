@@ -66,24 +66,26 @@ async function siirEkle() {
     return;
   }
 
-  await fetch('/.netlify/functions/siir-ekle', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ baslik, icerik })
-  });
+  // Yeni şiiri localStorage'a ekle
+  const siirListesi = JSON.parse(localStorage.getItem("siirListesi")) || [];
+  siirListesi.push({ baslik, icerik });
+  localStorage.setItem("siirListesi", JSON.stringify(siirListesi));
+
+  document.getElementById("siirBaslik").value = "";
+  document.getElementById("siirIcerik").value = "";
 
   siirleriYenidenYaz();
 }
 
-async function siirleriYenidenYaz() {
-  const response = await fetch('/.netlify/functions/siirleri-getir');
-  const siirler = await response.json();
+function siirleriYenidenYaz() {
+  const siirler = JSON.parse(localStorage.getItem("siirListesi")) || [];
   const grid = document.getElementById("siirGrid");
   grid.innerHTML = "";
 
   siirler.forEach((siir, index) => {
     const yeniDiv = document.createElement("div");
     yeniDiv.className = "poem";
+    yeniDiv.style.position = "relative";
 
     const h3 = document.createElement("h3");
     h3.innerText = siir.baslik;
@@ -93,6 +95,72 @@ async function siirleriYenidenYaz() {
 
     yeniDiv.appendChild(h3);
     yeniDiv.appendChild(p);
+
+    const silBtn = document.createElement("button");
+    silBtn.textContent = "Sil";
+    silBtn.style.marginRight = "8px";
+    silBtn.style.padding = "2px 6px";
+    silBtn.style.fontSize = "12px";
+    silBtn.style.borderRadius = "4px";
+    silBtn.style.border = "none";
+    silBtn.style.cursor = "pointer";
+    silBtn.addEventListener("click", () => {
+      if (confirm("Bu şiiri silmek istediğine emin misin?")) {
+        const siirListesi = JSON.parse(localStorage.getItem("siirListesi")) || [];
+        siirListesi.splice(index, 1);
+        localStorage.setItem("siirListesi", JSON.stringify(siirListesi));
+        siirleriYenidenYaz();
+      }
+    });
+
+    const duzenleBtn = document.createElement("button");
+    duzenleBtn.textContent = "Düzenle";
+    duzenleBtn.style.padding = "2px 6px";
+    duzenleBtn.style.fontSize = "12px";
+    duzenleBtn.style.borderRadius = "4px";
+    duzenleBtn.style.border = "none";
+    duzenleBtn.style.cursor = "pointer";
+    duzenleBtn.addEventListener("click", () => {
+      document.getElementById("siirBaslik").value = siir.baslik;
+      document.getElementById("siirIcerik").value = siir.icerik;
+
+      const guncelleBtn = document.createElement("button");
+      guncelleBtn.textContent = "Güncelle";
+      guncelleBtn.id = "guncelleBtn";
+      const form = document.getElementById("siirFormu");
+      form.appendChild(guncelleBtn);
+
+      guncelleBtn.onclick = () => {
+        const yeniBaslik = document.getElementById("siirBaslik").value.trim();
+        const yeniIcerik = document.getElementById("siirIcerik").value.trim();
+
+        if (!yeniBaslik || !yeniIcerik) {
+          alert("Lütfen şiir başlığı ve içeriğini doldur 🥺");
+          return;
+        }
+
+        const siirListesi = JSON.parse(localStorage.getItem("siirListesi")) || [];
+        siirListesi[index] = { baslik: yeniBaslik, icerik: yeniIcerik };
+        localStorage.setItem("siirListesi", JSON.stringify(siirListesi));
+
+        document.getElementById("siirBaslik").value = "";
+        document.getElementById("siirIcerik").value = "";
+        guncelleBtn.remove();
+        siirleriYenidenYaz();
+      };
+    });
+
+    const buttonContainer = document.createElement("div");
+    buttonContainer.style.position = "absolute";
+    buttonContainer.style.top = "8px";
+    buttonContainer.style.right = "8px";
+    buttonContainer.style.display = "flex";
+    buttonContainer.style.gap = "4px";
+
+    buttonContainer.appendChild(silBtn);
+    buttonContainer.appendChild(duzenleBtn);
+    yeniDiv.appendChild(buttonContainer);
+
     grid.appendChild(yeniDiv);
   });
 }

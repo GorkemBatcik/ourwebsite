@@ -1,9 +1,9 @@
 /* Genel */
 body, html {
+  font-family: 'Playfair Display', serif;
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
-  font-family: sans-serif;
 }
 
 section {
@@ -127,36 +127,46 @@ button:hover {
   height: auto;
 }
 
-.poem-title {
-  text-align: left;
-  font-size: 32px;
-  color: #d6336c;
-  margin-bottom: 40px;
-}
-
 /* Şiir ızgarası */
 #siirGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   column-gap: 20px;
   row-gap: 30px;
+  overflow-x: hidden;
 }
 
 /* Şiir kutuları sabit ve dinamik için ortak */
 .poem {
-  background: #fff;
-  border-left: 6px solid #ffd6e0;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  background: #ffe9f1; /* Çok açık, narin pembe */
+  border: 1px solid #ffd1e1; /* Hafif pembe çerçeve */
+  padding: 28px 22px;
+  border-radius: 18px;
+  box-shadow: 0 6px 18px rgba(255, 105, 180, 0.12);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
   position: relative;
-  word-wrap: break-word;
-  min-height: 220px;
+}
+
+.poem:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 36px rgba(255, 105, 180, 0.18);
 }
 
 .poem h3 {
-  margin-top: 0;
-  color: #b1004b;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 24px;
+  color: #9b004f;
+  margin-bottom: 14px;
+}
+
+.poem p {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 18px;
+  color: #6a004a;
+  line-height: 1.8;
+  white-space: pre-wrap;
 }
 
 .poem button.silButonu {
