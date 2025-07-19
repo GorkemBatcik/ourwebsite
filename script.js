@@ -57,7 +57,7 @@ function formuGoster() {
   form.style.display = form.style.display === "none" ? "block" : "none";
 }
 
-function siirEkle() {
+async function siirEkle() {
   const baslik = document.getElementById("siirBaslik").value.trim();
   const icerik = document.getElementById("siirIcerik").value.trim();
 
@@ -66,20 +66,18 @@ function siirEkle() {
     return;
   }
 
-  const yeniSiir = { baslik, icerik };
-  const siirler = JSON.parse(localStorage.getItem("siirListesi")) || [];
-
-  siirler.push(yeniSiir);
-  localStorage.setItem("siirListesi", JSON.stringify(siirler));
+  await fetch('/.netlify/functions/siir-ekle', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ baslik, icerik })
+  });
 
   siirleriYenidenYaz();
-  document.getElementById("siirBaslik").value = "";
-  document.getElementById("siirIcerik").value = "";
-  document.getElementById("siirFormu").style.display = "none";
 }
 
-function siirleriYenidenYaz() {
-  const siirler = JSON.parse(localStorage.getItem("siirListesi")) || [];
+async function siirleriYenidenYaz() {
+  const response = await fetch('/.netlify/functions/siirleri-getir');
+  const siirler = await response.json();
   const grid = document.getElementById("siirGrid");
   grid.innerHTML = "";
 
@@ -93,36 +91,8 @@ function siirleriYenidenYaz() {
     const p = document.createElement("p");
     p.innerHTML = siir.icerik.replace(/\n/g, "<br>");
 
-    const silBtn = document.createElement("button");
-    silBtn.innerText = "Sil";
-    silBtn.className = "silButonu";
-    silBtn.onclick = () => {
-      if (confirm("Bu şiiri silmek istediğine emin misin?😔")) {
-        siirler.splice(index, 1);
-        localStorage.setItem("siirListesi", JSON.stringify(siirler));
-        siirleriYenidenYaz();
-      }
-    };
-
-    const duzenleBtn = document.createElement("button");
-    duzenleBtn.innerText = "Düzenle";
-    duzenleBtn.className = "duzenleButonu";
-    duzenleBtn.onclick = () => {
-      const yeniBaslik = prompt("Yeni başlık:", siir.baslik);
-      const yeniIcerik = prompt("Yeni şiir:", siir.icerik);
-      if (yeniBaslik && yeniIcerik) {
-        siirler[index].baslik = yeniBaslik;
-        siirler[index].icerik = yeniIcerik;
-        localStorage.setItem("siirListesi", JSON.stringify(siirler));
-        siirleriYenidenYaz();
-      }
-    };
-
     yeniDiv.appendChild(h3);
     yeniDiv.appendChild(p);
-    yeniDiv.appendChild(silBtn);
-    yeniDiv.appendChild(duzenleBtn);
-
     grid.appendChild(yeniDiv);
   });
 }
