@@ -1,3 +1,36 @@
+/* Fancy title styling */
+.fancy-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #9b004f;
+  text-shadow: 2px 2px 8px rgba(155, 0, 79, 0.5);
+  transition: transform 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+  display: inline-block;
+}
+
+.fancy-subtitle {
+  font-family: 'Playfair Display', serif;
+  transition: transform 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+  display: inline-block;
+}
+
+.fancy-subtitle:hover {
+  color: #ff4081;
+  transform: scale(1.1);
+  text-shadow: 4px 4px 12px rgba(255, 64, 129, 0.7);
+}
+
+.fancy-title:hover {
+  color: #ff4081;
+  transform: scale(1.15);
+  text-shadow: 4px 4px 12px rgba(255, 64, 129, 0.7);
+}
+
 /* Genel */
 body, html {
   font-family: 'Playfair Display', serif;
