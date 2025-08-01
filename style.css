@@ -95,6 +95,21 @@ section {
   line-height: 1.1;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  white-space: nowrap;
+}
+
+/* Küçük ekranlarda orijinal içeriği gizle */
+@media (max-width: 767px) and (orientation: landscape) {
+  .orta-sol h1 {
+    font-size: 0;
+    line-height: 0;
+  }
+  
+  .orta-sol h1::before,
+  .orta-sol h1::after {
+    font-size: inherit;
+    line-height: inherit;
+  }
 }
 
 .orta-sol p {
@@ -459,13 +474,24 @@ button:hover {
     }
     
     .orta-sol h1 {
-      font-size: 2rem;
-      margin-bottom: 6px;
+      font-size: 1.2rem;
+      margin-bottom: 4px;
       line-height: 1.1;
+      white-space: normal;
+    }
+    
+    .orta-sol h1::after {
+      content: "Berilişko";
+      display: block;
+      margin-top: 3px;
+    }
+    
+    .orta-sol h1::before {
+      content: "Görkemişko💞";
     }
     
     .orta-sol p {
-      font-size: 1.1rem;
+      font-size: 0.8rem;
       margin-bottom: 0;
       line-height: 1.2;
     }
@@ -473,13 +499,15 @@ button:hover {
     .sag-alt {
       right: 10px;
       bottom: 10px;
-      max-width: 40%;
+      max-width: 35%;
     }
     
     .sag-alt button {
-      font-size: 1.1rem;
-      padding: 8px 15px;
+      font-size: 0.8rem !important;
+      padding: 6px 10px !important;
       white-space: nowrap;
+      border-radius: 8px !important;
+      letter-spacing: 1px !important;
     }
     
     #siirGrid {
@@ -515,13 +543,24 @@ button:hover {
     }
     
     .orta-sol h1 {
-      font-size: 1.4rem;
-      margin-bottom: 4px;
+      font-size: 0.9rem;
+      margin-bottom: 3px;
       line-height: 1.1;
+      white-space: normal;
+    }
+    
+    .orta-sol h1::after {
+      content: "Berilişko";
+      display: block;
+      margin-top: 2px;
+    }
+    
+    .orta-sol h1::before {
+      content: "Görkemişko💞";
     }
     
     .orta-sol p {
-      font-size: 0.9rem;
+      font-size: 0.7rem;
       margin-bottom: 0;
       line-height: 1.2;
     }
@@ -529,13 +568,15 @@ button:hover {
     .sag-alt {
       right: 8px;
       bottom: 8px;
-      max-width: 45%;
+      max-width: 40%;
     }
     
     .sag-alt button {
-      font-size: 0.8rem;
-      padding: 6px 12px;
+      font-size: 0.6rem !important;
+      padding: 4px 8px !important;
       white-space: nowrap;
+      border-radius: 6px !important;
+      letter-spacing: 0.5px !important;
     }
     
     #siirGrid {
@@ -575,12 +616,23 @@ button:hover {
   }
   
   .orta-sol h1 {
-    font-size: 1.8rem;
+    font-size: 1.1rem;
     line-height: 1.1;
+    white-space: normal;
+  }
+  
+  .orta-sol h1::after {
+    content: "Berilişko";
+    display: block;
+    margin-top: 2px;
+  }
+  
+  .orta-sol h1::before {
+    content: "Görkemişko💞";
   }
   
   .orta-sol p {
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     line-height: 1.2;
   }
   
@@ -589,8 +641,10 @@ button:hover {
   }
   
   .sag-alt button {
-    font-size: 1.2rem;
-    padding: 12px 20px;
+    font-size: 0.9rem !important;
+    padding: 8px 12px !important;
+    border-radius: 8px !important;
+    letter-spacing: 1px !important;
   }
   
   .half-half > div:last-child > div:first-child {
