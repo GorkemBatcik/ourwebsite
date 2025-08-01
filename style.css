@@ -447,33 +447,33 @@ button:hover {
     }
     
     .orta-sol {
-      left: 20px;
-      max-width: 60%;
+      left: 15px;
+      max-width: 55%;
       top: 50%;
       transform: translateY(-50%);
     }
     
     .orta-sol h1 {
-      font-size: 2.5rem;
-      margin-bottom: 8px;
+      font-size: 2rem;
+      margin-bottom: 6px;
       line-height: 1.1;
     }
     
     .orta-sol p {
-      font-size: 1.3rem;
+      font-size: 1.1rem;
       margin-bottom: 0;
       line-height: 1.2;
     }
     
     .sag-alt {
-      right: 15px;
-      bottom: 15px;
-      max-width: 35%;
+      right: 10px;
+      bottom: 10px;
+      max-width: 40%;
     }
     
     .sag-alt button {
-      font-size: 1.4rem;
-      padding: 12px 20px;
+      font-size: 1.1rem;
+      padding: 8px 15px;
       white-space: nowrap;
     }
     
@@ -503,33 +503,33 @@ button:hover {
     }
     
     .orta-sol {
-      left: 15px;
-      max-width: 55%;
+      left: 10px;
+      max-width: 50%;
       top: 50%;
       transform: translateY(-50%);
     }
     
     .orta-sol h1 {
-      font-size: 1.8rem;
-      margin-bottom: 6px;
+      font-size: 1.4rem;
+      margin-bottom: 4px;
       line-height: 1.1;
     }
     
     .orta-sol p {
-      font-size: 1rem;
+      font-size: 0.9rem;
       margin-bottom: 0;
       line-height: 1.2;
     }
     
     .sag-alt {
-      right: 10px;
-      bottom: 10px;
-      max-width: 40%;
+      right: 8px;
+      bottom: 8px;
+      max-width: 45%;
     }
     
     .sag-alt button {
-      font-size: 1rem;
-      padding: 10px 16px;
+      font-size: 0.8rem;
+      padding: 6px 12px;
       white-space: nowrap;
     }
     
@@ -656,22 +656,23 @@ button:hover {
   }
   
   body::after {
-    content: "📱 Lütfen telefonunuzu yatay tutun 📱";
+    content: "📱 Telefonunu Yatay Tut aşkım 📱";
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: rgba(0,0,0,0.9);
     color: white;
-    padding: 30px 40px;
-    border-radius: 20px;
-    font-size: 24px;
+    padding: 20px 30px;
+    border-radius: 15px;
+    font-size: 18px;
     font-weight: bold;
     z-index: 10001;
     text-align: center;
     white-space: nowrap;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    border: 3px solid white;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    border: 2px solid white;
+    max-width: 90vw;
   }
 }
 
@@ -728,30 +729,30 @@ button:hover {
   
   /* Sayaç boyutunu optimize et */
   .half-half > div:last-child > div:first-child {
-    margin-top: 10px;
-    padding: 15px 20px;
-    font-size: 1.2rem;
+    margin-top: 8px;
+    padding: 12px 16px;
+    font-size: 1rem;
     min-width: auto;
     margin-right: 0;
     flex-shrink: 0;
   }
   
   .half-half > div:last-child > div:first-child span:first-child {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
   
   .half-half > div:last-child > div:first-child #sayac {
-    font-size: 1.6rem;
+    font-size: 1.3rem;
   }
   
   .half-half > div:last-child > div:first-child div:last-child {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
   
   /* Not defteri alanını optimize et */
   #not-defteri-bolge {
-    margin: 10px auto;
-    padding: 15px 20px;
+    margin: 8px auto;
+    padding: 12px 16px;
     max-width: 100%;
     flex-grow: 1;
     display: flex;
@@ -759,8 +760,8 @@ button:hover {
   }
   
   #notDefteri {
-    height: 120px;
-    font-size: 0.9rem;
+    height: 100px;
+    font-size: 0.8rem;
     flex-grow: 1;
   }
 }
@@ -787,30 +788,30 @@ button:hover {
   }
   
   .half-half > div:last-child > div:first-child {
-    padding: 10px 15px;
-    font-size: 1rem;
+    padding: 8px 12px;
+    font-size: 0.8rem;
     min-width: auto;
   }
   
   .half-half > div:last-child > div:first-child span:first-child {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
   
   .half-half > div:last-child > div:first-child #sayac {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
   }
   
   .half-half > div:last-child > div:first-child div:last-child {
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
   
   #not-defteri-bolge {
-    padding: 10px 15px;
+    padding: 8px 12px;
   }
   
   #notDefteri {
-    height: 100px;
-    font-size: 0.8rem;
+    height: 80px;
+    font-size: 0.7rem;
   }
 }
 
