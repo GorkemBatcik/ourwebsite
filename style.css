@@ -562,14 +562,14 @@ button:hover {
     }
     
     .orta-sol h1 {
-      font-size: 1.5rem;
+      font-size: 0.375rem;
       margin-bottom: 4px;
       line-height: 1.1;
       white-space: normal;
     }
     
     .orta-sol p {
-      font-size: 0.8rem;
+      font-size: 0.2rem;
       margin-bottom: 0;
       line-height: 1.2;
     }

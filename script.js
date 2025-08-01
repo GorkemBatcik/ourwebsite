@@ -88,7 +88,7 @@ function showDeviceInfo() {
              fontSize = '0.6rem';
     } else if (width >= 480 && width < 768) {
       category = 'KÜÇÜK EKRAN';
-      fontSize = '1.5rem';
+      fontSize = '0.375rem';
     } else if (width >= 320 && width < 480) {
       category = 'ÇOK KÜÇÜK EKRAN';
       fontSize = '1.2rem';
