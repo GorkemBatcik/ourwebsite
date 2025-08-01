@@ -69,11 +69,57 @@ function hideOrientationWarning() {
   }
 }
 
+// Cihaz bilgisini göster
+function showDeviceInfo() {
+  const deviceInfo = document.getElementById('device-info');
+  if (deviceInfo) {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const orientation = width > height ? 'Landscape' : 'Portrait';
+    
+    let category = '';
+    let fontSize = '';
+    
+    if (width >= 1200) {
+      category = 'BÜYÜK EKRAN';
+      fontSize = '7rem';
+    } else if (width >= 768 && width < 1200) {
+      category = 'ORTA EKRAN';
+      fontSize = '5rem';
+    } else if (width >= 480 && width < 768) {
+      category = 'KÜÇÜK EKRAN';
+      fontSize = '0.025rem';
+    } else if (width >= 320 && width < 480) {
+      category = 'ÇOK KÜÇÜK EKRAN';
+      fontSize = '0.02rem';
+    } else {
+      category = 'MİNİ EKRAN';
+      fontSize = '0.01rem';
+    }
+    
+    deviceInfo.innerHTML = `
+      📱 Cihaz: ${category}<br>
+      📐 Boyut: ${width}px x ${height}px<br>
+      🔄 Yön: ${orientation}<br>
+      📝 Font: ${fontSize}
+    `;
+  }
+}
+
 // Sayfa yüklendiğinde ve yön değiştiğinde kontrol et
-window.addEventListener('load', checkOrientation);
-window.addEventListener('resize', checkOrientation);
+window.addEventListener('load', function() {
+  checkOrientation();
+  showDeviceInfo();
+});
+window.addEventListener('resize', function() {
+  checkOrientation();
+  showDeviceInfo();
+});
 window.addEventListener('orientationchange', function() {
-  setTimeout(checkOrientation, 100);
+  setTimeout(function() {
+    checkOrientation();
+    showDeviceInfo();
+  }, 100);
 });
 
 function tarihFarki(baslangic) {
