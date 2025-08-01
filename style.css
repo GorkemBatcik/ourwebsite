@@ -87,11 +87,11 @@ section {
 
 .orta-sol {
   left: 40px;
-  bottom: 120px;
+  bottom: 30px;
   max-width: 60%;
   z-index: 3;
   position: absolute;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 
 .orta-sol h1 {
@@ -492,11 +492,11 @@ button:hover {
   /* Orta ekranlar (768px - 1199px) */
   @media (min-width: 768px) and (max-width: 1199px) {
     .orta-sol h1 {
-      font-size: 1.25rem;
+      font-size: 0.875rem;
     }
     
     .orta-sol p {
-      font-size: 0.55rem;
+      font-size: 0.385rem;
     }
     
     #siirGrid {
@@ -558,7 +558,7 @@ button:hover {
     .orta-sol {
       left: 15px;
       max-width: 55%;
-      bottom: 80px;
+      bottom: 40px;
     }
     
     .orta-sol h1 {
@@ -655,7 +655,7 @@ button:hover {
     .orta-sol {
       left: 10px;
       max-width: 50%;
-      bottom: 60px;
+      bottom: 30px;
     }
     
     .orta-sol h1 {
@@ -752,7 +752,7 @@ button:hover {
   }
   
   .orta-sol {
-    bottom: 40px;
+    bottom: 20px;
     max-width: 50%;
   }
   
