@@ -37,6 +37,9 @@ body, html {
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
+  /* Yatay mod için genel ayarlar */
+  min-height: 100vh;
+  min-width: 100vw;
 }
 
 section {
@@ -44,12 +47,14 @@ section {
   height: 100vh;
 }
 
-/* 1. Giriş ekranı */
+/* 1. Giriş ekranı - Yatay optimizasyonu */
 .hero {
   position: relative;
   width: 100%;
   height: 100vh;
   overflow: hidden;
+  display: flex;
+  align-items: center;
 }
 
 .hero-image {
@@ -78,21 +83,26 @@ section {
   left: 40px;
   top: 50%;
   transform: translateY(-50%);
+  max-width: 60%;
 }
 
 .orta-sol h1 {
   font-size: 48px;
   margin: 0;
+  line-height: 1.1;
 }
 
 .orta-sol p {
   font-size: 24px;
   margin-top: 10px;
+  line-height: 1.3;
 }
 
 .sag-alt {
   bottom: 20px;
   right: 20px;
+  display: flex;
+  align-items: center;
 }
 
 button {
@@ -110,10 +120,11 @@ button:hover {
   background-color: #ff3e9e;
 }
 
-/* 2. Foto ve sayaç */
+/* 2. Foto ve sayaç - Yatay optimizasyonu */
 .half-half {
   display: flex;
   height: 100vh;
+  flex-direction: row;
 }
 
 .left-image {
@@ -122,6 +133,7 @@ button:hover {
   align-items: center;
   justify-content: center;
   background-color: black;
+  height: 100vh;
 }
 
 .left-image img {
@@ -153,21 +165,22 @@ button:hover {
   font-weight: bold;
 }
 
-/* 3. Şiirler */
+/* 3. Şiirler - Yatay optimizasyonu */
 .poems {
   background: #fffdf8;
-  padding: 60px 40px;
+  padding: 40px 60px;
   min-height: 100vh;
   height: auto;
 }
 
-/* Şiir ızgarası */
+/* Şiir ızgarası - Yatay için optimize */
 #siirGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  column-gap: 30px;
   row-gap: 30px;
   overflow-x: hidden;
+  max-width: 100%;
 }
 
 /* Şiir kutuları sabit ve dinamik için ortak */
@@ -179,6 +192,7 @@ button:hover {
   box-shadow: 0 6px 18px rgba(255, 105, 180, 0.12);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   position: relative;
+  min-height: 200px;
 }
 
 .poem:hover {
@@ -265,7 +279,7 @@ button:hover {
   padding: 24px;
   background: linear-gradient(135deg, #fff0f5, #ffeef8);
   border-radius: 16px;
-  max-width: 600px;
+  max-width: 800px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.08);
   display: flex;
   flex-direction: column;
@@ -338,26 +352,231 @@ button:hover {
   filter: blur(0) !important;
 }
 
-/* Tablet ve altı cihazlar için responsive ayarlar */
-@media (max-width: 768px) {
-  .half-half {
-    flex-direction: column;
-    height: auto;
-  }
+/* ===== YATAY MOD ZORUNLU TASARIM ===== */
 
-  .left-image, .right-counter {
-    width: 100%;
-    height: auto;
+/* Tüm cihazlar için yatay mod zorlaması */
+@media screen and (orientation: portrait) {
+  body {
+    transform: rotate(90deg);
+    transform-origin: left top;
+    width: 100vh;
+    height: 100vw;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
   }
-
-  .left-image img {
-    width: 90%;
-    max-width: 100%;
-    height: auto;
+  
+  /* Portrait modda uyarı mesajı */
+  body::before {
+    content: "Lütfen telefonunuzu yatay tutun 📱";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-90deg);
+    background: rgba(0,0,0,0.9);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 18px;
+    z-index: 9999;
+    text-align: center;
+    white-space: nowrap;
   }
+}
 
-  #siirGrid {
-    grid-template-columns: 1fr;
-    padding: 0 10px;
+/* Yatay mod için optimize edilmiş responsive tasarım */
+@media screen and (orientation: landscape) {
+  /* Büyük ekranlar (1200px+) */
+  @media (min-width: 1200px) {
+    .orta-sol h1 {
+      font-size: 5rem;
+    }
+    
+    .orta-sol p {
+      font-size: 2.2rem;
+    }
+    
+    #siirGrid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .sag-alt button {
+      font-size: 2.8rem;
+      padding: 30px 70px;
+    }
+  }
+  
+  /* Orta ekranlar (768px - 1199px) */
+  @media (min-width: 768px) and (max-width: 1199px) {
+    .orta-sol h1 {
+      font-size: 4rem;
+    }
+    
+    .orta-sol p {
+      font-size: 1.8rem;
+    }
+    
+    #siirGrid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .sag-alt button {
+      font-size: 2.4rem;
+      padding: 25px 55px;
+    }
+  }
+  
+  /* Küçük yatay ekranlar (480px - 767px) */
+  @media (min-width: 480px) and (max-width: 767px) {
+    .orta-sol {
+      left: 20px;
+      max-width: 70%;
+    }
+    
+    .orta-sol h1 {
+      font-size: 2.8rem;
+    }
+    
+    .orta-sol p {
+      font-size: 1.4rem;
+    }
+    
+    .sag-alt {
+      right: 15px;
+      bottom: 15px;
+    }
+    
+    .sag-alt button {
+      font-size: 1.8rem;
+      padding: 18px 35px;
+    }
+    
+    #siirGrid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    
+    .poem {
+      padding: 20px 16px;
+    }
+    
+    .poem h3 {
+      font-size: 18px;
+    }
+    
+    .poem p {
+      font-size: 14px;
+    }
+  }
+  
+  /* Çok küçük yatay ekranlar (320px - 479px) */
+  @media (min-width: 320px) and (max-width: 479px) {
+    .orta-sol {
+      left: 15px;
+      max-width: 75%;
+    }
+    
+    .orta-sol h1 {
+      font-size: 2.2rem;
+    }
+    
+    .orta-sol p {
+      font-size: 1.1rem;
+    }
+    
+    .sag-alt {
+      right: 10px;
+      bottom: 10px;
+    }
+    
+    .sag-alt button {
+      font-size: 1.4rem;
+      padding: 14px 25px;
+    }
+    
+    #siirGrid {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+    
+    .poem {
+      padding: 16px 12px;
+    }
+    
+    .poem h3 {
+      font-size: 16px;
+    }
+    
+    .poem p {
+      font-size: 13px;
+    }
+    
+    .poems {
+      padding: 30px 20px;
+    }
+  }
+}
+
+/* Yükseklik bazlı optimizasyonlar */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .orta-sol {
+    top: 40%;
+  }
+  
+  .orta-sol h1 {
+    font-size: 2rem;
+  }
+  
+  .orta-sol p {
+    font-size: 1rem;
+  }
+  
+  .sag-alt {
+    bottom: 10px;
+  }
+  
+  .sag-alt button {
+    font-size: 1.2rem;
+    padding: 12px 20px;
+  }
+  
+  .half-half > div:last-child > div:first-child {
+    margin-top: 10px;
+    padding: 15px 20px;
+    font-size: 1.2rem;
+  }
+  
+  #not-defteri-bolge {
+    margin: 10px auto;
+    padding: 15px 20px;
+  }
+  
+  #notDefteri {
+    height: 80px;
+  }
+}
+
+/* Touch cihazlar için hover efektlerini devre dışı bırak */
+@media (hover: none) {
+  .fancy-title:hover,
+  .fancy-subtitle:hover,
+  .poem:hover,
+  .form-ac-button:hover,
+  .kaydet-btn:hover {
+    transform: none;
+  }
+  
+  .poem:hover {
+    transform: none;
+    box-shadow: 0 6px 18px rgba(255, 105, 180, 0.12);
+  }
+}
+
+/* Yüksek DPI ekranlar için */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .hero-image {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
   }
 }

@@ -1,3 +1,79 @@
+// Yatay mod zorlaması ve algılama
+function checkOrientation() {
+  if (window.innerHeight > window.innerWidth) {
+    // Portrait modda
+    document.body.classList.add('portrait-mode');
+    showOrientationWarning();
+  } else {
+    // Landscape modda
+    document.body.classList.remove('portrait-mode');
+    hideOrientationWarning();
+  }
+}
+
+function showOrientationWarning() {
+  let warning = document.getElementById('orientation-warning');
+  if (!warning) {
+    warning = document.createElement('div');
+    warning.id = 'orientation-warning';
+    warning.innerHTML = `
+      <div style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,0.95);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+        color: white;
+        text-align: center;
+        font-family: 'Playfair Display', serif;
+      ">
+        <div style="font-size: 3rem; margin-bottom: 20px;">📱</div>
+        <h2 style="font-size: 1.8rem; margin-bottom: 15px;">Telefonunuzu Yatay Tutun</h2>
+        <p style="font-size: 1.2rem; opacity: 0.8;">En iyi deneyim için telefonunuzu yatay konuma getirin</p>
+        <div style="
+          margin-top: 30px;
+          width: 60px;
+          height: 60px;
+          border: 3px solid white;
+          border-radius: 10px;
+          animation: rotate 2s infinite;
+        "></div>
+      </div>
+    `;
+    
+    // CSS animasyonu ekle
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes rotate {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(90deg); }
+      }
+    `;
+    document.head.appendChild(style);
+    document.body.appendChild(warning);
+  }
+}
+
+function hideOrientationWarning() {
+  const warning = document.getElementById('orientation-warning');
+  if (warning) {
+    warning.remove();
+  }
+}
+
+// Sayfa yüklendiğinde ve yön değiştiğinde kontrol et
+window.addEventListener('load', checkOrientation);
+window.addEventListener('resize', checkOrientation);
+window.addEventListener('orientationchange', function() {
+  setTimeout(checkOrientation, 100);
+});
+
 function tarihFarki(baslangic) {
   const simdi = new Date();
   let yillar = simdi.getFullYear() - baslangic.getFullYear();
@@ -50,6 +126,7 @@ window.onload = function () {
     localStorage.setItem("siirListesi", JSON.stringify(baslangicSiirleri));
   }
   siirleriYenidenYaz();
+  checkOrientation(); // Sayfa yüklendiğinde yön kontrolü
 };
 
 function formuGoster() {
