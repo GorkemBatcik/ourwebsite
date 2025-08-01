@@ -55,6 +55,7 @@ section {
   overflow: hidden;
   display: flex;
   align-items: center;
+  min-height: 100vh;
 }
 
 .hero-image {
@@ -84,18 +85,24 @@ section {
   top: 50%;
   transform: translateY(-50%);
   max-width: 60%;
+  z-index: 3;
+  position: absolute;
 }
 
 .orta-sol h1 {
   font-size: 48px;
   margin: 0;
   line-height: 1.1;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .orta-sol p {
   font-size: 24px;
   margin-top: 10px;
   line-height: 1.3;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .sag-alt {
@@ -103,6 +110,8 @@ section {
   right: 20px;
   display: flex;
   align-items: center;
+  z-index: 3;
+  position: absolute;
 }
 
 button {
@@ -125,6 +134,7 @@ button:hover {
   display: flex;
   height: 100vh;
   flex-direction: row;
+  min-height: 100vh;
 }
 
 .left-image {
@@ -171,6 +181,8 @@ button:hover {
   padding: 40px 60px;
   min-height: 100vh;
   height: auto;
+  position: relative;
+  z-index: 1;
 }
 
 /* Şiir ızgarası - Yatay için optimize */
@@ -429,27 +441,40 @@ button:hover {
   
   /* Küçük yatay ekranlar (480px - 767px) */
   @media (min-width: 480px) and (max-width: 767px) {
+    .hero {
+      height: 100vh;
+      min-height: 100vh;
+    }
+    
     .orta-sol {
       left: 20px;
-      max-width: 70%;
+      max-width: 60%;
+      top: 50%;
+      transform: translateY(-50%);
     }
     
     .orta-sol h1 {
-      font-size: 2.8rem;
+      font-size: 2.5rem;
+      margin-bottom: 8px;
+      line-height: 1.1;
     }
     
     .orta-sol p {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
+      margin-bottom: 0;
+      line-height: 1.2;
     }
     
     .sag-alt {
       right: 15px;
       bottom: 15px;
+      max-width: 35%;
     }
     
     .sag-alt button {
-      font-size: 1.8rem;
-      padding: 18px 35px;
+      font-size: 1.4rem;
+      padding: 12px 20px;
+      white-space: nowrap;
     }
     
     #siirGrid {
@@ -472,27 +497,40 @@ button:hover {
   
   /* Çok küçük yatay ekranlar (320px - 479px) */
   @media (min-width: 320px) and (max-width: 479px) {
+    .hero {
+      height: 100vh;
+      min-height: 100vh;
+    }
+    
     .orta-sol {
       left: 15px;
-      max-width: 75%;
+      max-width: 55%;
+      top: 50%;
+      transform: translateY(-50%);
     }
     
     .orta-sol h1 {
-      font-size: 2.2rem;
+      font-size: 1.8rem;
+      margin-bottom: 6px;
+      line-height: 1.1;
     }
     
     .orta-sol p {
-      font-size: 1.1rem;
+      font-size: 1rem;
+      margin-bottom: 0;
+      line-height: 1.2;
     }
     
     .sag-alt {
       right: 10px;
       bottom: 10px;
+      max-width: 40%;
     }
     
     .sag-alt button {
-      font-size: 1.4rem;
-      padding: 14px 25px;
+      font-size: 1rem;
+      padding: 10px 16px;
+      white-space: nowrap;
     }
     
     #siirGrid {
@@ -520,16 +558,25 @@ button:hover {
 
 /* Yükseklik bazlı optimizasyonlar */
 @media screen and (max-height: 500px) and (orientation: landscape) {
+  .hero {
+    height: 100vh;
+    min-height: 100vh;
+  }
+  
   .orta-sol {
-    top: 40%;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 50%;
   }
   
   .orta-sol h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
+    line-height: 1.1;
   }
   
   .orta-sol p {
-    font-size: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.2;
   }
   
   .sag-alt {
@@ -578,5 +625,239 @@ button:hover {
   .hero-image {
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
+  }
+}
+
+/* ===== PORTRAIT MOD UYARISI VE OPTİMİZASYONLAR ===== */
+
+/* Portrait modda uyarı mesajı - daha görünür */
+@media screen and (orientation: portrait) {
+  body {
+    background: #000;
+  }
+  
+  /* Portrait uyarı mesajı */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff69b4, #ff1493);
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+  }
+  
+  body::after {
+    content: "📱 Lütfen telefonunuzu yatay tutun 📱";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.9);
+    color: white;
+    padding: 30px 40px;
+    border-radius: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    z-index: 10001;
+    text-align: center;
+    white-space: nowrap;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 3px solid white;
+  }
+}
+
+/* ===== FOTOĞRAF OPTİMİZASYONLARI ===== */
+
+/* Tüm fotoğrafların tam ekranı doldurması */
+.animated-image {
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  width: 100vw !important;
+  height: 100vh !important;
+}
+
+/* Hero image tam ekran */
+.hero-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+/* ===== İKİNCİ SAYFA UZATMA ===== */
+
+/* Half-half section'ı uzat */
+.half-half {
+  min-height: 100vh;
+  height: auto;
+  flex-direction: column;
+}
+
+/* Mobil cihazlarda half-half yan yana düzen */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+  .half-half {
+    flex-direction: row !important;
+    min-height: 100vh;
+    height: 100vh;
+  }
+  
+  .left-image {
+    width: 50% !important;
+    height: 100vh !important;
+    flex-shrink: 0;
+  }
+  
+  .half-half > div:last-child {
+    width: 50% !important;
+    height: 100vh !important;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  
+  /* Sayaç boyutunu optimize et */
+  .half-half > div:last-child > div:first-child {
+    margin-top: 10px;
+    padding: 15px 20px;
+    font-size: 1.2rem;
+    min-width: auto;
+    margin-right: 0;
+    flex-shrink: 0;
+  }
+  
+  .half-half > div:last-child > div:first-child span:first-child {
+    font-size: 0.9rem;
+  }
+  
+  .half-half > div:last-child > div:first-child #sayac {
+    font-size: 1.6rem;
+  }
+  
+  .half-half > div:last-child > div:first-child div:last-child {
+    font-size: 1.2rem;
+  }
+  
+  /* Not defteri alanını optimize et */
+  #not-defteri-bolge {
+    margin: 10px auto;
+    padding: 15px 20px;
+    max-width: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #notDefteri {
+    height: 120px;
+    font-size: 0.9rem;
+    flex-grow: 1;
+  }
+}
+
+/* Çok küçük ekranlarda daha da optimize */
+@media screen and (max-width: 480px) and (orientation: landscape) {
+  .half-half {
+    flex-direction: row !important;
+    min-height: 100vh;
+    height: 100vh;
+  }
+  
+  .left-image {
+    width: 50% !important;
+    height: 100vh !important;
+    flex-shrink: 0;
+  }
+  
+  .half-half > div:last-child {
+    width: 50% !important;
+    height: 100vh !important;
+    padding: 15px;
+    flex-shrink: 0;
+  }
+  
+  .half-half > div:last-child > div:first-child {
+    padding: 10px 15px;
+    font-size: 1rem;
+    min-width: auto;
+  }
+  
+  .half-half > div:last-child > div:first-child span:first-child {
+    font-size: 0.8rem;
+  }
+  
+  .half-half > div:last-child > div:first-child #sayac {
+    font-size: 1.3rem;
+  }
+  
+  .half-half > div:last-child > div:first-child div:last-child {
+    font-size: 1rem;
+  }
+  
+  #not-defteri-bolge {
+    padding: 10px 15px;
+  }
+  
+  #notDefteri {
+    height: 100px;
+    font-size: 0.8rem;
+  }
+}
+
+/* ===== YAZI UZUNLUĞUNA GÖRE SAYFA UZATMA ===== */
+
+/* Hero section'da yazı uzunluğuna göre ayarlama */
+.hero {
+  min-height: 100vh;
+  height: auto;
+  padding: 40px 0;
+}
+
+.orta-sol {
+  max-width: 60%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Mobil cihazlarda yazı boyutlarını optimize et */
+@media screen and (max-width: 767px) and (orientation: landscape) {
+  .orta-sol {
+    max-width: 70%;
+  }
+  
+  .orta-sol h1 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+  }
+  
+  .orta-sol p {
+    font-size: 1.3rem;
+    line-height: 1.4;
+  }
+}
+
+@media screen and (max-width: 480px) and (orientation: landscape) {
+  .orta-sol {
+    max-width: 75%;
+  }
+  
+  .orta-sol h1 {
+    font-size: 2rem;
+    line-height: 1.1;
+  }
+  
+  .orta-sol p {
+    font-size: 1.1rem;
+    line-height: 1.3;
   }
 }

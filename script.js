@@ -23,7 +23,7 @@ function showOrientationWarning() {
         left: 0;
         width: 100vw;
         height: 100vh;
-        background: rgba(0,0,0,0.95);
+        background: linear-gradient(135deg, #ff69b4, #ff1493);
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -33,17 +33,18 @@ function showOrientationWarning() {
         text-align: center;
         font-family: 'Playfair Display', serif;
       ">
-        <div style="font-size: 3rem; margin-bottom: 20px;">📱</div>
-        <h2 style="font-size: 1.8rem; margin-bottom: 15px;">Telefonunuzu Yatay Tutun</h2>
-        <p style="font-size: 1.2rem; opacity: 0.8;">En iyi deneyim için telefonunuzu yatay konuma getirin</p>
+        <div style="font-size: 4rem; margin-bottom: 30px;">📱</div>
+        <h2 style="font-size: 2.5rem; margin-bottom: 20px; font-weight: bold;">Telefonunu Yatay Tut aşkım</h2>
+        <p style="font-size: 1.5rem; opacity: 0.9; margin-bottom: 30px;">En iyi deneyim için telefonunuzu yatay konuma getirin</p>
         <div style="
-          margin-top: 30px;
-          width: 60px;
-          height: 60px;
-          border: 3px solid white;
-          border-radius: 10px;
+          width: 80px;
+          height: 80px;
+          border: 4px solid white;
+          border-radius: 15px;
           animation: rotate 2s infinite;
+          margin-top: 20px;
         "></div>
+        <p style="font-size: 1.2rem; margin-top: 30px; opacity: 0.8;">⬅️ Yatay çevir bitanem ➡️</p>
       </div>
     `;
     
