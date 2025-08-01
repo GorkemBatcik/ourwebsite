@@ -492,11 +492,11 @@ button:hover {
   /* Orta ekranlar (768px - 1199px) */
   @media (min-width: 768px) and (max-width: 1199px) {
     .orta-sol h1 {
-      font-size: 0.625rem;
+      font-size: 2rem;
     }
     
     .orta-sol p {
-      font-size: 0.275rem;
+      font-size: 1rem;
     }
     
     #siirGrid {
@@ -562,14 +562,14 @@ button:hover {
     }
     
     .orta-sol h1 {
-      font-size: 0.7rem;
+      font-size: 1.5rem;
       margin-bottom: 4px;
       line-height: 1.1;
       white-space: normal;
     }
     
     .orta-sol p {
-      font-size: 0.35rem;
+      font-size: 0.8rem;
       margin-bottom: 0;
       line-height: 1.2;
     }
@@ -659,14 +659,14 @@ button:hover {
     }
     
     .orta-sol h1 {
-      font-size: 0.55rem;
+      font-size: 1.2rem;
       margin-bottom: 3px;
       line-height: 1.1;
       white-space: normal;
     }
     
     .orta-sol p {
-      font-size: 0.275rem;
+      font-size: 0.6rem;
       margin-bottom: 0;
       line-height: 1.2;
     }
@@ -757,13 +757,13 @@ button:hover {
   }
   
   .orta-sol h1 {
-    font-size: 0.5rem;
+    font-size: 1rem;
     line-height: 1.1;
     white-space: normal;
   }
   
   .orta-sol p {
-    font-size: 0.25rem;
+    font-size: 0.5rem;
     line-height: 1.2;
   }
   
@@ -1035,12 +1035,12 @@ button:hover {
   }
   
   .orta-sol h1 {
-    font-size: 0.625rem;
+    font-size: 2rem;
     line-height: 1.2;
   }
   
   .orta-sol p {
-    font-size: 0.275rem;
+    font-size: 1rem;
     line-height: 1.4;
   }
 }
@@ -1051,12 +1051,12 @@ button:hover {
   }
   
   .orta-sol h1 {
-    font-size: 0.55rem;
+    font-size: 1.2rem;
     line-height: 1.1;
   }
   
   .orta-sol p {
-    font-size: 0.275rem;
+    font-size: 0.6rem;
     line-height: 1.3;
   }
 }

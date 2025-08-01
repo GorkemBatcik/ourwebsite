@@ -85,13 +85,13 @@ function showDeviceInfo() {
       fontSize = '7rem';
                } else if (width >= 768 && width < 1200) {
              category = 'ORTA EKRAN';
-             fontSize = '0.625rem';
+             fontSize = '2rem';
     } else if (width >= 480 && width < 768) {
       category = 'KÜÇÜK EKRAN';
-      fontSize = '0.7rem';
+      fontSize = '1.5rem';
     } else if (width >= 320 && width < 480) {
       category = 'ÇOK KÜÇÜK EKRAN';
-      fontSize = '0.55rem';
+      fontSize = '1.2rem';
     } else {
       category = 'MİNİ EKRAN';
       fontSize = '1.8rem';
