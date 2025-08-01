@@ -54,8 +54,11 @@ section {
   height: 100vh;
   overflow: hidden;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
   min-height: 100vh;
+  padding-bottom: 40px;
 }
 
 .hero-image {
@@ -76,17 +79,19 @@ section {
 }
 
 .sol-ust {
-  top: 20px;
-  left: 20px;
+  top: 40px;
+  left: 40px;
+  z-index: 3;
+  position: absolute;
 }
 
 .orta-sol {
   left: 40px;
-  top: 50%;
-  transform: translateY(-50%);
+  bottom: 120px;
   max-width: 60%;
   z-index: 3;
   position: absolute;
+  margin-bottom: 20px;
 }
 
 .orta-sol h1 {
@@ -115,8 +120,8 @@ section {
 }
 
 .sag-alt {
-  bottom: 20px;
-  right: 20px;
+  bottom: 40px;
+  right: 40px;
   display: flex;
   align-items: center;
   z-index: 3;
@@ -192,6 +197,57 @@ button:hover {
   height: auto;
   position: relative;
   z-index: 1;
+}
+
+/* Berilişko Şiirleri Başlığı - Havalı ve Şık */
+.poem-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 4.5rem;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 50px;
+  background: linear-gradient(135deg, #ff69b4, #ff1493, #ff69b4);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 3s ease-in-out infinite;
+  text-shadow: 0 0 30px rgba(255, 105, 180, 0.3);
+  position: relative;
+  letter-spacing: 2px;
+}
+
+.poem-title::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #ff69b4, transparent);
+  border-radius: 2px;
+}
+
+.poem-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ff1493, transparent);
+  border-radius: 1px;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 /* Şiir ızgarası - Yatay için optimize */
@@ -436,53 +492,58 @@ button:hover {
   /* Orta ekranlar (768px - 1199px) */
   @media (min-width: 768px) and (max-width: 1199px) {
     .orta-sol h1 {
-      font-size: 2.5rem;
+      font-size: 1.25rem;
     }
     
     .orta-sol p {
-      font-size: 1.1rem;
+      font-size: 0.55rem;
     }
     
     #siirGrid {
       grid-template-columns: repeat(3, 1fr);
     }
     
+    .poem-title {
+      font-size: 3rem;
+      margin-bottom: 30px;
+    }
+    
     .sag-alt button {
-      font-size: 3.12rem;
-      padding: 32.5px 71.5px;
+      font-size: 4.06rem;
+      padding: 42.25px 92.95px;
     }
     
     /* İkinci sayfa sayaç optimizasyonu */
     .half-half > div:last-child > div:first-child {
-      margin-top: 20px;
-      padding: 16px 24px;
-      font-size: 1rem;
-      min-width: 160px;
-      margin-right: 10px;
+      margin-top: 10px;
+      padding: 8px 12px;
+      font-size: 0.5rem;
+      min-width: 80px;
+      margin-right: 5px;
     }
     
     .half-half > div:last-child > div:first-child span:first-child {
-      font-size: 0.6rem;
+      font-size: 0.3rem;
     }
     
     .half-half > div:last-child > div:first-child #sayac {
-      font-size: 1.25rem;
+      font-size: 0.625rem;
     }
     
     .half-half > div:last-child > div:first-child div:last-child {
-      font-size: 1rem;
+      font-size: 0.5rem;
     }
     
     /* Not defteri optimizasyonu */
     #not-defteri-bolge {
-      margin: 5px auto;
-      padding: 9px 10px;
-      max-width: 50%;
+      margin: 2.5px auto;
+      padding: 4.5px 5px;
+      max-width: 25%;
     }
     
     #notDefteri {
-      height: 55px;
-      font-size: 0.3rem;
+      height: 27.5px;
+      font-size: 0.15rem;
     }
   }
   
@@ -491,31 +552,31 @@ button:hover {
     .hero {
       height: 100vh;
       min-height: 100vh;
+      padding-bottom: 20px;
     }
     
     .orta-sol {
       left: 15px;
       max-width: 55%;
-      top: 50%;
-      transform: translateY(-50%);
+      bottom: 80px;
     }
     
     .orta-sol h1 {
-      font-size: 2.8rem;
+      font-size: 1.4rem;
       margin-bottom: 4px;
       line-height: 1.1;
       white-space: normal;
     }
     
     .orta-sol p {
-      font-size: 1.4rem;
+      font-size: 0.7rem;
       margin-bottom: 0;
       line-height: 1.2;
     }
     
     .sag-alt {
       right: 10px;
-      bottom: 10px;
+      bottom: 20px;
       max-width: 35%;
     }
     
@@ -529,40 +590,45 @@ button:hover {
     
     /* İkinci sayfa sayaç optimizasyonu - küçük ekranlar */
     .half-half > div:last-child > div:first-child {
-      margin-top: 8px;
-      padding: 12px 16px;
-      font-size: 1rem;
+      margin-top: 4px;
+      padding: 6px 8px;
+      font-size: 0.5rem;
       min-width: auto;
       margin-right: 0;
     }
     
     .half-half > div:last-child > div:first-child span:first-child {
-      font-size: 0.8rem;
+      font-size: 0.4rem;
     }
     
     .half-half > div:last-child > div:first-child #sayac {
-      font-size: 1.3rem;
+      font-size: 0.65rem;
     }
     
     .half-half > div:last-child > div:first-child div:last-child {
-      font-size: 1rem;
+      font-size: 0.5rem;
     }
     
     /* Not defteri optimizasyonu - küçük ekranlar */
     #not-defteri-bolge {
-      margin: 4px auto;
-      padding: 6px 8px;
-      max-width: 50%;
+      margin: 2px auto;
+      padding: 3px 4px;
+      max-width: 25%;
     }
     
     #notDefteri {
-      height: 50px;
-      font-size: 0.4rem;
+      height: 25px;
+      font-size: 0.2rem;
     }
     
     #siirGrid {
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
+    }
+    
+    .poem-title {
+      font-size: 2rem;
+      margin-bottom: 20px;
     }
     
     .poem {
@@ -583,31 +649,31 @@ button:hover {
     .hero {
       height: 100vh;
       min-height: 100vh;
+      padding-bottom: 15px;
     }
     
     .orta-sol {
       left: 10px;
       max-width: 50%;
-      top: 50%;
-      transform: translateY(-50%);
+      bottom: 60px;
     }
     
     .orta-sol h1 {
-      font-size: 2.2rem;
+      font-size: 1.1rem;
       margin-bottom: 3px;
       line-height: 1.1;
       white-space: normal;
     }
     
     .orta-sol p {
-      font-size: 1.1rem;
+      font-size: 0.55rem;
       margin-bottom: 0;
       line-height: 1.2;
     }
     
     .sag-alt {
       right: 8px;
-      bottom: 8px;
+      bottom: 15px;
       max-width: 40%;
     }
     
@@ -621,37 +687,42 @@ button:hover {
     
     /* İkinci sayfa sayaç optimizasyonu - çok küçük ekranlar */
     .half-half > div:last-child > div:first-child {
-      padding: 8px 12px;
-      font-size: 0.8rem;
+      padding: 4px 6px;
+      font-size: 0.4rem;
       min-width: auto;
     }
     
     .half-half > div:last-child > div:first-child span:first-child {
-      font-size: 0.7rem;
+      font-size: 0.35rem;
     }
     
     .half-half > div:last-child > div:first-child #sayac {
-      font-size: 1.1rem;
+      font-size: 0.55rem;
     }
     
     .half-half > div:last-child > div:first-child div:last-child {
-      font-size: 0.8rem;
+      font-size: 0.4rem;
     }
     
     /* Not defteri optimizasyonu - çok küçük ekranlar */
     #not-defteri-bolge {
-      padding: 4px 6px;
-      max-width: 50%;
+      padding: 2px 3px;
+      max-width: 25%;
     }
     
     #notDefteri {
-      height: 40px;
-      font-size: 0.35rem;
+      height: 20px;
+      font-size: 0.175rem;
     }
     
     #siirGrid {
       grid-template-columns: 1fr;
       gap: 15px;
+    }
+    
+    .poem-title {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
     }
     
     .poem {
@@ -677,22 +748,22 @@ button:hover {
   .hero {
     height: 100vh;
     min-height: 100vh;
+    padding-bottom: 10px;
   }
   
   .orta-sol {
-    top: 50%;
-    transform: translateY(-50%);
+    bottom: 40px;
     max-width: 50%;
   }
   
   .orta-sol h1 {
-    font-size: 2rem;
+    font-size: 1rem;
     line-height: 1.1;
     white-space: normal;
   }
   
   .orta-sol p {
-    font-size: 1rem;
+    font-size: 0.5rem;
     line-height: 1.2;
   }
   
@@ -964,12 +1035,12 @@ button:hover {
   }
   
   .orta-sol h1 {
-    font-size: 2.5rem;
+    font-size: 1.25rem;
     line-height: 1.2;
   }
   
   .orta-sol p {
-    font-size: 1.3rem;
+    font-size: 0.55rem;
     line-height: 1.4;
   }
 }
@@ -980,12 +1051,12 @@ button:hover {
   }
   
   .orta-sol h1 {
-    font-size: 2rem;
+    font-size: 1.1rem;
     line-height: 1.1;
   }
   
   .orta-sol p {
-    font-size: 1.1rem;
+    font-size: 0.55rem;
     line-height: 1.3;
   }
 }
