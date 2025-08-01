@@ -19,6 +19,25 @@
   display: inline-block;
 }
 
+/* Hero sayfası için özel stiller */
+.hero-title {
+  margin: 0;
+  font-size: 7rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 4px 4px 20px #000, 0 0 10px #ff69b4;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.hero-subtitle {
+  font-size: 2rem;
+  margin-top: 16px;
+  color: white;
+  text-shadow: 2px 2px 8px #000;
+}
+
 .fancy-subtitle:hover {
   color: #ff4081;
   transform: scale(1.1);
@@ -471,11 +490,13 @@ button:hover {
 @media screen and (orientation: landscape) {
   /* Büyük ekranlar (1200px+) */
   @media (min-width: 1200px) {
-    .orta-sol h1 {
+    .orta-sol h1,
+    .hero-title {
       font-size: 7rem;
     }
     
-    .orta-sol p {
+    .orta-sol p,
+    .hero-subtitle {
       font-size: 2rem;
     }
     
@@ -491,12 +512,14 @@ button:hover {
   
   /* Orta ekranlar (768px - 1199px) */
   @media (min-width: 768px) and (max-width: 1199px) {
-    .orta-sol h1 {
-      font-size: 0.6rem;
+    .orta-sol h1,
+    .hero-title {
+      font-size: 3.5rem; /* Bilgisayar boyutunun yarısı (7rem/2) */
     }
     
-    .orta-sol p {
-      font-size: 0.3rem;
+    .orta-sol p,
+    .hero-subtitle {
+      font-size: 1rem; /* Bilgisayar boyutunun yarısı (2rem/2) */
     }
     
     #siirGrid {
@@ -561,15 +584,17 @@ button:hover {
       bottom: 40px;
     }
     
-    .orta-sol h1 {
-      font-size: 0.375rem;
+    .orta-sol h1,
+    .hero-title {
+      font-size: 3.5rem; /* Bilgisayar boyutunun yarısı (7rem/2) */
       margin-bottom: 4px;
       line-height: 1.1;
       white-space: normal;
     }
     
-    .orta-sol p {
-      font-size: 0.2rem;
+    .orta-sol p,
+    .hero-subtitle {
+      font-size: 1rem; /* Bilgisayar boyutunun yarısı (2rem/2) */
       margin-bottom: 0;
       line-height: 1.2;
     }
@@ -658,15 +683,17 @@ button:hover {
       bottom: 30px;
     }
     
-    .orta-sol h1 {
-      font-size: 1.2rem;
+    .orta-sol h1,
+    .hero-title {
+      font-size: 3.5rem; /* Bilgisayar boyutunun yarısı (7rem/2) */
       margin-bottom: 3px;
       line-height: 1.1;
       white-space: normal;
     }
     
-    .orta-sol p {
-      font-size: 0.6rem;
+    .orta-sol p,
+    .hero-subtitle {
+      font-size: 1rem; /* Bilgisayar boyutunun yarısı (2rem/2) */
       margin-bottom: 0;
       line-height: 1.2;
     }
@@ -756,14 +783,16 @@ button:hover {
     max-width: 50%;
   }
   
-  .orta-sol h1 {
-    font-size: 1rem;
+  .orta-sol h1,
+  .hero-title {
+    font-size: 3.5rem; /* Bilgisayar boyutunun yarısı (7rem/2) */
     line-height: 1.1;
     white-space: normal;
   }
   
-  .orta-sol p {
-    font-size: 0.5rem;
+  .orta-sol p,
+  .hero-subtitle {
+    font-size: 1rem; /* Bilgisayar boyutunun yarısı (2rem/2) */
     line-height: 1.2;
   }
   
@@ -1034,13 +1063,15 @@ button:hover {
     max-width: 70%;
   }
   
-  .orta-sol h1 {
-    font-size: 0.6rem;
+  .orta-sol h1,
+  .hero-title {
+    font-size: 3.5rem; /* Bilgisayar boyutunun yarısı (7rem/2) */
     line-height: 1.2;
   }
   
-  .orta-sol p {
-    font-size: 0.3rem;
+  .orta-sol p,
+  .hero-subtitle {
+    font-size: 1rem; /* Bilgisayar boyutunun yarısı (2rem/2) */
     line-height: 1.4;
   }
 }
@@ -1050,13 +1081,15 @@ button:hover {
     max-width: 75%;
   }
   
-  .orta-sol h1 {
-    font-size: 1.2rem;
+  .orta-sol h1,
+  .hero-title {
+    font-size: 3.5rem; /* Bilgisayar boyutunun yarısı (7rem/2) */
     line-height: 1.1;
   }
   
-  .orta-sol p {
-    font-size: 0.6rem;
+  .orta-sol p,
+  .hero-subtitle {
+    font-size: 1rem; /* Bilgisayar boyutunun yarısı (2rem/2) */
     line-height: 1.3;
   }
 }
