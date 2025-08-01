@@ -85,7 +85,7 @@ function showDeviceInfo() {
       fontSize = '7rem';
                } else if (width >= 768 && width < 1200) {
              category = 'ORTA EKRAN';
-             fontSize = '2rem';
+             fontSize = '0.6rem';
     } else if (width >= 480 && width < 768) {
       category = 'KÜÇÜK EKRAN';
       fontSize = '1.5rem';

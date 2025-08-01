@@ -492,11 +492,11 @@ button:hover {
   /* Orta ekranlar (768px - 1199px) */
   @media (min-width: 768px) and (max-width: 1199px) {
     .orta-sol h1 {
-      font-size: 2rem;
+      font-size: 0.6rem;
     }
     
     .orta-sol p {
-      font-size: 1rem;
+      font-size: 0.3rem;
     }
     
     #siirGrid {
@@ -1035,12 +1035,12 @@ button:hover {
   }
   
   .orta-sol h1 {
-    font-size: 2rem;
+    font-size: 0.6rem;
     line-height: 1.2;
   }
   
   .orta-sol p {
-    font-size: 1rem;
+    font-size: 0.3rem;
     line-height: 1.4;
   }
 }
