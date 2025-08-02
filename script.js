@@ -1,55 +1,28 @@
 // ===== DOĞUM GÜNÜ GİRİŞ EKRANI =====
 
-// Kocaman konfeti oluşturma fonksiyonu
-function createConfetti() {
-  const confettiContainer = document.getElementById('confetti-container');
-  const colors = ['#ff69b4', '#ff1493', '#ffb6c1', '#ff69b4', '#ff1493'];
-  
-  // Ekran boyutuna göre konfeti sayısını ayarla
-  let confettiCount = 50; // Varsayılan büyük ekranlar için
-  
-  if (window.innerWidth <= 479) {
-    confettiCount = 20; // Çok küçük ekranlar
-  } else if (window.innerWidth <= 767) {
-    confettiCount = 30; // Küçük ekranlar
-  } else if (window.innerWidth <= 1199) {
-    confettiCount = 40; // Orta ekranlar
-  }
-  
-  for (let i = 0; i < confettiCount; i++) {
-    const confetti = document.createElement('div');
-    confetti.className = 'confetti';
-    confetti.style.left = Math.random() * 100 + '%';
-    confetti.style.animationDelay = Math.random() * 2 + 's';
-    confetti.style.animationDuration = (Math.random() * 2 + 3) + 's';
-    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-    confetti.style.width = (Math.random() * 30 + 20) + 'px';
-    confetti.style.height = (Math.random() * 30 + 20) + 'px';
-    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0%';
-    
-    confettiContainer.appendChild(confetti);
-  }
-}
-
 // Zıplayan kalpler oluşturma fonksiyonu
 function createHearts() {
   const heartsContainer = document.getElementById('hearts-container');
   
-  // Ekran boyutuna göre kalp sayısını ayarla
-  let heartCount = 15; // Varsayılan büyük ekranlar için
+  // Farklı kalp emojileri
+  const heartEmojis = ['💞', '🩷', '💗', '💖', '💘', '❤️'];
+  
+  // Ekran boyutuna göre kalp sayısını ayarla (2 kat artırıldı)
+  let heartCount = 30; // Varsayılan büyük ekranlar için (15 * 2)
   
   if (window.innerWidth <= 479) {
-    heartCount = 8; // Çok küçük ekranlar
+    heartCount = 16; // Çok küçük ekranlar (8 * 2)
   } else if (window.innerWidth <= 767) {
-    heartCount = 10; // Küçük ekranlar
+    heartCount = 20; // Küçük ekranlar (10 * 2)
   } else if (window.innerWidth <= 1199) {
-    heartCount = 12; // Orta ekranlar
+    heartCount = 24; // Orta ekranlar (12 * 2)
   }
   
   for (let i = 0; i < heartCount; i++) {
     const heart = document.createElement('div');
     heart.className = 'heart';
-    heart.innerHTML = '💖';
+    // Rastgele kalp emoji seç
+    heart.innerHTML = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
     heart.style.left = Math.random() * 100 + '%';
     heart.style.animationDelay = Math.random() * 3 + 's';
     heart.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
@@ -63,17 +36,24 @@ function checkBirthdayIntro() {
   const birthdayIntro = document.getElementById('birthday-intro');
   const mainContent = document.getElementById('main-content');
   
-  // Eğer yatay modda ise giriş ekranını göster (her seferinde)
+  // Eğer yatay modda ise ve daha önce giriş yapılmamışsa giriş ekranını göster
   if (window.innerWidth > window.innerHeight) {
-    birthdayIntro.style.display = 'flex';
-    mainContent.style.display = 'none';
-    createConfetti();
-    createHearts();
+    const hasEntered = sessionStorage.getItem('birthdayEntered');
     
-    // 10 saniye sonra otomatik kapan
-    setTimeout(() => {
-      enterWebsite();
-    }, 10000);
+    if (!hasEntered) {
+      birthdayIntro.style.display = 'flex';
+      mainContent.style.display = 'none';
+      createHearts();
+      
+      // 10 saniye sonra otomatik kapan
+      setTimeout(() => {
+        enterWebsite();
+      }, 10000);
+    } else {
+      // Daha önce giriş yapılmışsa direkt ana içeriği göster
+      birthdayIntro.style.display = 'none';
+      mainContent.style.display = 'block';
+    }
   } else {
     // Portrait modda giriş ekranını gizle
     birthdayIntro.style.display = 'none';
@@ -85,6 +65,9 @@ function checkBirthdayIntro() {
 function enterWebsite() {
   const birthdayIntro = document.getElementById('birthday-intro');
   const mainContent = document.getElementById('main-content');
+  
+  // Giriş yapıldığını sessionStorage'a kaydet
+  sessionStorage.setItem('birthdayEntered', 'true');
   
   // Giriş ekranını gizle ve ana içeriği göster
   birthdayIntro.style.display = 'none';
@@ -189,7 +172,12 @@ window.addEventListener('orientationchange', function() {
 
 // Sayfa yüklendiğinde giriş ekranını kontrol et
 document.addEventListener('DOMContentLoaded', function() {
-  // Sayfa yenilendiğinde de giriş ekranını göster
+  // Sayfa yenilendiğinde (F5) sessionStorage'ı temizle
+  if (performance.navigation.type === 1) {
+    sessionStorage.removeItem('birthdayEntered');
+  }
+  
+  // Giriş ekranını kontrol et
   checkBirthdayIntro();
 });
 
