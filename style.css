@@ -38,6 +38,40 @@
   text-shadow: 2px 2px 8px #000;
 }
 
+/* Tarih yazıları */
+.date-label {
+  font-size: 1rem;
+  font-weight: bold;
+  padding-left: 40px;
+  color: white;
+  text-shadow: 2px 2px 4px #000;
+  margin: 0;
+  margin-bottom: 10px;
+  cursor: pointer;
+  user-select: none;
+  display: block;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.date-value {
+  font-size: 1.5rem;
+  margin: 0;
+  padding-left: 40px;
+  color: white;
+  text-shadow: 2px 2px 4px #000;
+  cursor: pointer;
+  user-select: none;
+  display: block;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.date-label:hover,
+.date-value:hover {
+  color: #ff69b4;
+  transform: scale(1.1);
+  text-shadow: 4px 4px 12px rgba(255, 105, 180, 0.7);
+}
+
 .fancy-subtitle:hover {
   color: #ff4081;
   transform: scale(1.1);
@@ -169,6 +203,7 @@ button:hover {
   flex-direction: row;
   min-height: 100vh;
   background: #ffe0f0;
+  overflow: hidden;
 }
 
 .left-image {
@@ -179,6 +214,7 @@ button:hover {
   background-color: black;
   height: 100vh;
   flex-shrink: 0;
+  min-width: 50%;
 }
 
 .half-image {
@@ -193,17 +229,23 @@ button:hover {
   width: 50%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   background: #fce4ec;
-  height: 100%;
+  height: 100vh;
   position: relative;
   flex-shrink: 0;
+  min-width: 50%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px 0;
+  box-sizing: border-box;
 }
 
 /* Sayaç kutusu */
 .counter-box {
-  margin-top: 40px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   background: rgba(255, 105, 180, 0.85);
   color: white;
   padding: 32px 48px;
@@ -216,7 +258,9 @@ button:hover {
   backdrop-filter: blur(2px);
   text-align: center;
   min-width: 320px;
+  max-width: 90%;
   margin-right: 20px;
+  box-sizing: border-box;
 }
 
 .counter-label {
@@ -246,15 +290,17 @@ button:hover {
 
 /* Not defteri bölgesi */
 .notebook-section {
-  margin: 40px auto;
+  margin: 20px auto;
   padding: 36px 40px;
   max-width: 700px;
+  width: 90%;
   background: linear-gradient(135deg, #fffde7, #fff9c4);
   border-radius: 20px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
   gap: 20px;
+  box-sizing: border-box;
 }
 
 .notebook-label {
@@ -585,12 +631,23 @@ button:hover {
       font-size: 2rem;
     }
     
+    /* Tarih yazıları - büyük ekranlar */
+    .date-label {
+      font-size: 1rem;
+    }
+    
+    .date-value {
+      font-size: 1.5rem;
+    }
+    
     /* İkinci sayfa - büyük ekranlar */
     .counter-box {
-      margin-top: 40px;
+      margin-top: 20px;
+      margin-bottom: 20px;
       padding: 32px 48px;
       font-size: 2rem;
       min-width: 320px;
+      max-width: 90%;
     }
     
     .counter-label {
@@ -610,9 +667,10 @@ button:hover {
     }
     
     .notebook-section {
-      margin: 40px auto;
+      margin: 20px auto;
       padding: 36px 40px;
       max-width: 700px;
+      width: 90%;
     }
     
     .notebook-label {
@@ -651,12 +709,23 @@ button:hover {
       font-size: 1rem; /* Bilgisayar boyutunun yarısı (2rem/2) */
     }
     
+    /* Tarih yazıları - orta ekranlar */
+    .date-label {
+      font-size: 0.5rem; /* Bilgisayar boyutunun yarısı (1rem/2) */
+    }
+    
+    .date-value {
+      font-size: 0.75rem; /* Bilgisayar boyutunun yarısı (1.5rem/2) */
+    }
+    
     /* İkinci sayfa - orta ekranlar */
     .counter-box {
-      margin-top: 20px;
+      margin-top: 10px;
+      margin-bottom: 10px;
       padding: 16px 24px;
       font-size: 1rem;
       min-width: 160px;
+      max-width: 90%;
       margin-right: 10px;
     }
     
@@ -677,9 +746,10 @@ button:hover {
     }
     
     .notebook-section {
-      margin: 20px auto;
+      margin: 10px auto;
       padding: 18px 20px;
       max-width: 350px;
+      width: 90%;
     }
     
     .notebook-label {
@@ -740,6 +810,15 @@ button:hover {
       line-height: 1.2;
     }
     
+    /* Tarih yazıları - küçük ekranlar */
+    .date-label {
+      font-size: 0.5rem; /* Bilgisayar boyutunun yarısı (1rem/2) */
+    }
+    
+    .date-value {
+      font-size: 0.75rem; /* Bilgisayar boyutunun yarısı (1.5rem/2) */
+    }
+    
     .sag-alt {
       right: 10px;
       bottom: 20px;
@@ -756,10 +835,12 @@ button:hover {
     
     /* İkinci sayfa - küçük ekranlar */
     .counter-box {
-      margin-top: 10px;
+      margin-top: 5px;
+      margin-bottom: 5px;
       padding: 12px 16px;
       font-size: 0.8rem;
       min-width: auto;
+      max-width: 90%;
       margin-right: 0;
     }
     
@@ -780,9 +861,10 @@ button:hover {
     }
     
     .notebook-section {
-      margin: 10px auto;
+      margin: 5px auto;
       padding: 12px 16px;
       max-width: 90%;
+      width: 90%;
     }
     
     .notebook-label {
@@ -851,6 +933,15 @@ button:hover {
       line-height: 1.2;
     }
     
+    /* Tarih yazıları - çok küçük ekranlar */
+    .date-label {
+      font-size: 0.5rem; /* Bilgisayar boyutunun yarısı (1rem/2) */
+    }
+    
+    .date-value {
+      font-size: 0.75rem; /* Bilgisayar boyutunun yarısı (1.5rem/2) */
+    }
+    
     .sag-alt {
       right: 8px;
       bottom: 15px;
@@ -867,9 +958,12 @@ button:hover {
     
     /* İkinci sayfa - çok küçük ekranlar */
     .counter-box {
+      margin-top: 3px;
+      margin-bottom: 3px;
       padding: 8px 12px;
       font-size: 0.6rem;
       min-width: auto;
+      max-width: 90%;
     }
     
     .counter-label {
@@ -889,8 +983,10 @@ button:hover {
     }
     
     .notebook-section {
+      margin: 3px auto;
       padding: 8px 12px;
       max-width: 95%;
+      width: 90%;
     }
     
     .notebook-label {
@@ -961,6 +1057,15 @@ button:hover {
     line-height: 1.2;
   }
   
+  /* Tarih yazıları - düşük yükseklik */
+  .date-label {
+    font-size: 0.5rem; /* Bilgisayar boyutunun yarısı (1rem/2) */
+  }
+  
+  .date-value {
+    font-size: 0.75rem; /* Bilgisayar boyutunun yarısı (1.5rem/2) */
+  }
+  
   .sag-alt {
     bottom: 10px;
   }
@@ -974,9 +1079,11 @@ button:hover {
   
   /* İkinci sayfa - düşük yükseklik */
   .counter-box {
-    margin-top: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     padding: 15px 20px;
     font-size: 1.2rem;
+    max-width: 90%;
   }
   
   .counter-label {
@@ -996,8 +1103,9 @@ button:hover {
   }
   
   .notebook-section {
-    margin: 10px auto;
+    margin: 5px auto;
     padding: 15px 20px;
+    width: 90%;
   }
   
   .notebook-label {
@@ -1113,175 +1221,3 @@ button:hover {
   object-fit: cover !important;
 }
 
-/* ===== İKİNCİ SAYFA UZATMA ===== */
-
-/* Half-half section'ı uzat */
-.half-half {
-  min-height: 100vh;
-  height: auto;
-  flex-direction: column;
-}
-
-/* Mobil cihazlarda half-half yan yana düzen */
-@media screen and (max-width: 768px) and (orientation: landscape) {
-  .half-half {
-    flex-direction: row !important;
-    min-height: 100vh;
-    height: 100vh;
-  }
-  
-  .left-image {
-    width: 50% !important;
-    height: 100vh !important;
-    flex-shrink: 0;
-  }
-  
-  .half-half > div:last-child {
-    width: 50% !important;
-    height: 100vh !important;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex-shrink: 0;
-  }
-  
-  /* Sayaç boyutunu optimize et */
-  .half-half > div:last-child > div:first-child {
-    margin-top: 8px;
-    padding: 12px 16px;
-    font-size: 1rem;
-    min-width: auto;
-    margin-right: 0;
-    flex-shrink: 0;
-  }
-  
-  .half-half > div:last-child > div:first-child span:first-child {
-    font-size: 0.8rem;
-  }
-  
-  .half-half > div:last-child > div:first-child #sayac {
-    font-size: 1.3rem;
-  }
-  
-  .half-half > div:last-child > div:first-child div:last-child {
-    font-size: 1rem;
-  }
-  
-  /* Not defteri alanını optimize et */
-  #not-defteri-bolge {
-    margin: 8px auto;
-    padding: 12px 16px;
-    max-width: 100%;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  #notDefteri {
-    height: 100px;
-    font-size: 0.8rem;
-    flex-grow: 1;
-  }
-}
-
-/* Çok küçük ekranlarda daha da optimize */
-@media screen and (max-width: 480px) and (orientation: landscape) {
-  .half-half {
-    flex-direction: row !important;
-    min-height: 100vh;
-    height: 100vh;
-  }
-  
-  .left-image {
-    width: 50% !important;
-    height: 100vh !important;
-    flex-shrink: 0;
-  }
-  
-  .half-half > div:last-child {
-    width: 50% !important;
-    height: 100vh !important;
-    padding: 15px;
-    flex-shrink: 0;
-  }
-  
-  .half-half > div:last-child > div:first-child {
-    padding: 8px 12px;
-    font-size: 0.8rem;
-    min-width: auto;
-  }
-  
-  .half-half > div:last-child > div:first-child span:first-child {
-    font-size: 0.7rem;
-  }
-  
-  .half-half > div:last-child > div:first-child #sayac {
-    font-size: 1.1rem;
-  }
-  
-  .half-half > div:last-child > div:first-child div:last-child {
-    font-size: 0.8rem;
-  }
-  
-  #not-defteri-bolge {
-    padding: 8px 12px;
-  }
-  
-  #notDefteri {
-    height: 80px;
-    font-size: 0.7rem;
-  }
-}
-
-/* ===== YAZI UZUNLUĞUNA GÖRE SAYFA UZATMA ===== */
-
-/* Hero section'da yazı uzunluğuna göre ayarlama */
-.hero {
-  min-height: 100vh;
-  height: auto;
-  padding: 40px 0;
-}
-
-.orta-sol {
-  max-width: 60%;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-
-/* Mobil cihazlarda yazı boyutlarını optimize et */
-@media screen and (max-width: 767px) and (orientation: landscape) {
-  .orta-sol {
-    max-width: 70%;
-  }
-  
-  .orta-sol h1,
-  .hero-title {
-    font-size: 3.5rem; /* Bilgisayar boyutunun yarısı (7rem/2) */
-    line-height: 1.2;
-  }
-  
-  .orta-sol p,
-  .hero-subtitle {
-    font-size: 1rem; /* Bilgisayar boyutunun yarısı (2rem/2) */
-    line-height: 1.4;
-  }
-}
-
-@media screen and (max-width: 480px) and (orientation: landscape) {
-  .orta-sol {
-    max-width: 75%;
-  }
-  
-  .orta-sol h1,
-  .hero-title {
-    font-size: 3.5rem; /* Bilgisayar boyutunun yarısı (7rem/2) */
-    line-height: 1.1;
-  }
-  
-  .orta-sol p,
-  .hero-subtitle {
-    font-size: 1rem; /* Bilgisayar boyutunun yarısı (2rem/2) */
-    line-height: 1.3;
-  }
-}
