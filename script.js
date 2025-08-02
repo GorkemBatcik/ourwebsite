@@ -213,17 +213,139 @@ sayaçGuncelle();
 const notDefteri = document.getElementById("notDefteri");
 const notKaydet = document.getElementById("notKaydet");
 
-// Sayfa açıldığında kaydedilmiş notu göster
-if (localStorage.getItem("kullaniciNotu")) {
-  notDefteri.value = localStorage.getItem("kullaniciNotu");
+// Eski sistemden yeni sisteme geçiş (bir kez çalışır)
+function eskiNotlariTasi() {
+  const eskiNot = localStorage.getItem("kullaniciNotu");
+  if (eskiNot && eskiNot.trim() !== "") {
+    // Eski notu yeni sisteme taşı
+    const yeniNot = {
+      id: Date.now(),
+      metin: eskiNot,
+      tarih: new Date().toLocaleString('tr-TR'),
+      ozet: eskiNot.length > 100 ? eskiNot.substring(0, 100) + '...' : eskiNot
+    };
+    
+    const mevcutNotlar = JSON.parse(localStorage.getItem("kullaniciNotlari")) || [];
+    mevcutNotlar.push(yeniNot);
+    localStorage.setItem("kullaniciNotlari", JSON.stringify(mevcutNotlar));
+    
+    // Eski notu sil
+    localStorage.removeItem("kullaniciNotu");
+  }
 }
+
+// Sayfa yüklendiğinde eski notları taşı ve textarea'yı temiz tut
+document.addEventListener('DOMContentLoaded', function() {
+  eskiNotlariTasi();
+  // Textarea'yı her zaman temiz tut
+  notDefteri.value = "";
+});
 
 // Kaydet butonuna tıklanınca notu sakla
 notKaydet.addEventListener("click", function () {
-  localStorage.setItem("kullaniciNotu", notDefteri.value);
-  notKaydet.textContent = "Kaydedildi!";
-  setTimeout(() => { notKaydet.textContent = "Kaydet"; }, 1200);
+  const notMetni = notDefteri.value.trim();
+  
+  if (!notMetni) {
+    alert("Lütfen bir not yaz bana aşkım 🥺");
+    return;
+  }
+  
+  // Mevcut notları al
+  const mevcutNotlar = JSON.parse(localStorage.getItem("kullaniciNotlari")) || [];
+  
+  // Yeni notu ekle
+  const yeniNot = {
+    id: Date.now(),
+    metin: notMetni,
+    tarih: new Date().toLocaleString('tr-TR'),
+    ozet: notMetni.length > 100 ? notMetni.substring(0, 100) + '...' : notMetni
+  };
+  
+  mevcutNotlar.push(yeniNot);
+  localStorage.setItem("kullaniciNotlari", JSON.stringify(mevcutNotlar));
+  
+  // Textarea'yı temizle
+  notDefteri.value = "";
+  
+  // Başarı mesajı
+  notKaydet.textContent = "Kaydedildi! 💌";
+  setTimeout(() => { 
+    notKaydet.textContent = "💌 Kaydet"; 
+  }, 1200);
+  
+  // Eğer notlarım listesi açıksa güncelle
+  if (document.getElementById("notlarimListesi").style.display !== "none") {
+    notlarimiGoster();
+  }
 });
+
+// Notlarım listesini göster/gizle
+function notlarimiGoster() {
+  const notlarimListesi = document.getElementById("notlarimListesi");
+  const notlarimBtn = document.getElementById("notlarimBtn");
+  
+  if (notlarimListesi.style.display === "none") {
+    notlarimListesi.style.display = "block";
+    notlarimBtn.textContent = "📝 Gizle";
+    notlarimiListele();
+  } else {
+    notlarimListesi.style.display = "none";
+    notlarimBtn.textContent = "📝 Notlarım";
+  }
+}
+
+// Notları listele
+function notlarimiListele() {
+  const notlarimIcerik = document.getElementById("notlarimIcerik");
+  const notlar = JSON.parse(localStorage.getItem("kullaniciNotlari")) || [];
+  
+  if (notlar.length === 0) {
+    notlarimIcerik.innerHTML = '<div class="notlarim-bos">Henüz hiç not kaydetmemişsin 💕</div>';
+    return;
+  }
+  
+  // Notları ters sırayla listele (en yeni üstte)
+  const tersNotlar = notlar.slice().reverse();
+  
+  notlarimIcerik.innerHTML = tersNotlar.map(not => `
+    <div class="not-item" onclick="notAcKapat(this, ${not.id})">
+      <button class="not-sil-btn" onclick="notSil(event, ${not.id})" title="Notu sil">×</button>
+      <div class="not-tarih">📅 ${not.tarih}</div>
+      <div class="not-ozet">${not.ozet}</div>
+      <div class="not-tam-metin">${not.metin}</div>
+    </div>
+  `).join('');
+}
+
+// Notu aç/kapat
+function notAcKapat(notElement, notId) {
+  // Diğer tüm notları kapat
+  document.querySelectorAll('.not-item').forEach(item => {
+    if (item !== notElement) {
+      item.classList.remove('expanded');
+    }
+  });
+  
+  // Bu notu aç/kapat
+  notElement.classList.toggle('expanded');
+}
+
+// Notu sil
+function notSil(event, notId) {
+  event.stopPropagation(); // Not açılmasını engelle
+  
+  if (confirm("Bu notu silmek istediğine emin misin? ☹️")) {
+    const notlar = JSON.parse(localStorage.getItem("kullaniciNotlari")) || [];
+    const guncelNotlar = notlar.filter(not => not.id !== notId);
+    localStorage.setItem("kullaniciNotlari", JSON.stringify(guncelNotlar));
+    
+    // Listeyi güncelle
+    notlarimiListele();
+    
+    // Textarea'yı her zaman temiz tut
+    notDefteri.value = "";
+  }
+}
 
 // Şiirleri yükle (sayfa açıldığında çalışır)
 const baslangicSiirleri = [];
@@ -235,6 +357,11 @@ window.onload = function () {
   siirleriYenidenYaz();
   checkOrientation(); // Sayfa yüklendiğinde yön kontrolü
   sayaçGuncelle(); // Sayaç güncelle
+  
+  // Textarea'yı temiz tut
+  if (notDefteri) {
+    notDefteri.value = "";
+  }
 };
 
 function formuGoster() {

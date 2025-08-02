@@ -703,7 +703,7 @@ button:hover {
   color: #fff;
 }
 
-/* Not defteri bölgesi */
+/* Not defteri bölgesi - Ana stiller */
 .notebook-section {
   margin: 20px auto;
   padding: 36px 40px;
@@ -718,12 +718,46 @@ button:hover {
   box-sizing: border-box;
 }
 
+.notebook-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
 .notebook-label {
   font-size: 1.6rem;
   font-weight: bold;
   color: #d4af37;
   margin-bottom: 8px;
   text-align: center;
+  flex: 1;
+  min-width: 200px;
+}
+
+.notlarim-button {
+  background: linear-gradient(90deg, #ffb6c1, #ff69b4);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  white-space: nowrap;
+}
+
+.notlarim-button:hover {
+  background: linear-gradient(90deg, #ff69b4, #ff1493);
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.notlarim-button:active {
+  transform: scale(0.98);
 }
 
 .notebook-textarea {
@@ -752,6 +786,119 @@ button:hover {
   cursor: pointer;
   transition: background 0.2s ease, transform 0.1s ease;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Notlarım listesi stilleri */
+.notlarim-liste {
+  margin-top: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+  border: 2px solid #fce68e;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.notlarim-baslik {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #d4af37;
+  text-align: center;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.not-item {
+  background: linear-gradient(135deg, #fff9c4, #fffde7);
+  border: 1px solid #fce68e;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  position: relative;
+}
+
+.not-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-color: #ffd54f;
+}
+
+.not-item.expanded {
+  background: linear-gradient(135deg, #fffde7, #fff9c4);
+  border-color: #ffd54f;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+}
+
+.not-tarih {
+  font-size: 0.8rem;
+  color: #888;
+  margin-bottom: 8px;
+  font-style: italic;
+}
+
+.not-ozet {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.4;
+  max-height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.not-tam-metin {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.6;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #fce68e;
+  white-space: pre-wrap;
+  display: none;
+}
+
+.not-item.expanded .not-tam-metin {
+  display: block;
+}
+
+.not-sil-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 105, 105, 0.8);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+
+.not-item:hover .not-sil-btn {
+  opacity: 1;
+}
+
+.not-sil-btn:hover {
+  background: rgba(255, 0, 0, 0.9);
+  transform: scale(1.1);
+}
+
+/* Boş not mesajı */
+.notlarim-bos {
+  text-align: center;
+  color: #888;
+  font-style: italic;
+  padding: 30px;
+  font-size: 1.1rem;
 }
 
 /* 3. Şiirler - Yatay optimizasyonu */
@@ -1081,26 +1228,7 @@ button:hover {
       font-size: 2rem;
     }
     
-    .notebook-section {
-      margin: 20px auto;
-      padding: 36px 40px;
-      max-width: 700px;
-      width: 90%;
-    }
-    
-    .notebook-label {
-      font-size: 1.6rem;
-    }
-    
-    .notebook-textarea {
-      height: 220px;
-      font-size: 1.2rem;
-    }
-    
-    .notebook-button {
-      font-size: 1.1rem;
-      padding: 14px;
-    }
+
     
     #siirGrid {
       grid-template-columns: repeat(4, 1fr);
@@ -1160,26 +1288,7 @@ button:hover {
       font-size: 1rem;
     }
     
-    .notebook-section {
-      margin: 10px auto;
-      padding: 18px 20px;
-      max-width: 350px;
-      width: 90%;
-    }
-    
-    .notebook-label {
-      font-size: 0.8rem;
-    }
-    
-    .notebook-textarea {
-      height: 110px;
-      font-size: 0.6rem;
-    }
-    
-    .notebook-button {
-      font-size: 0.55rem;
-      padding: 7px;
-    }
+
     
     #siirGrid {
       grid-template-columns: repeat(3, 1fr);
@@ -1275,26 +1384,7 @@ button:hover {
       font-size: 0.8rem;
     }
     
-    .notebook-section {
-      margin: 5px auto;
-      padding: 12px 16px;
-      max-width: 90%;
-      width: 90%;
-    }
-    
-    .notebook-label {
-      font-size: 0.6rem;
-    }
-    
-    .notebook-textarea {
-      height: 80px;
-      font-size: 0.5rem;
-    }
-    
-    .notebook-button {
-      font-size: 0.5rem;
-      padding: 6px;
-    }
+
     
     #siirGrid {
       grid-template-columns: repeat(2, 1fr);
@@ -1397,26 +1487,7 @@ button:hover {
       font-size: 0.6rem;
     }
     
-    .notebook-section {
-      margin: 3px auto;
-      padding: 8px 12px;
-      max-width: 95%;
-      width: 90%;
-    }
-    
-    .notebook-label {
-      font-size: 0.5rem;
-    }
-    
-    .notebook-textarea {
-      height: 60px;
-      font-size: 0.4rem;
-    }
-    
-    .notebook-button {
-      font-size: 0.4rem;
-      padding: 4px;
-    }
+
     
     #siirGrid {
       grid-template-columns: 1fr;
@@ -1517,25 +1588,7 @@ button:hover {
     font-size: 1.2rem;
   }
   
-  .notebook-section {
-    margin: 5px auto;
-    padding: 15px 20px;
-    width: 90%;
-  }
-  
-  .notebook-label {
-    font-size: 0.8rem;
-  }
-  
-  .notebook-textarea {
-    height: 80px;
-    font-size: 0.6rem;
-  }
-  
-  .notebook-button {
-    font-size: 0.55rem;
-    padding: 7px;
-  }
+      
 }
 
 /* Touch cihazlar için hover efektlerini devre dışı bırak */
@@ -1746,6 +1799,569 @@ button:hover {
     font-size: 16px;
     top: 8px;
     right: 8px;
+  }
+}
+
+/* ===== RESPONSIVE TASARIM - TÜM CİHAZLAR İÇİN ===== */
+
+/* Büyük masaüstü ekranlar (1400px+) */
+@media screen and (min-width: 1400px) {
+  .notebook-section {
+    max-width: 800px;
+    padding: 40px 50px;
+  }
+  
+  .notebook-label {
+    font-size: 1.8rem;
+  }
+  
+  .notlarim-button {
+    padding: 12px 24px;
+    font-size: 1.1rem;
+  }
+  
+  .notebook-textarea {
+    height: 250px;
+    font-size: 1.3rem;
+  }
+  
+  .notebook-button {
+    padding: 16px;
+    font-size: 1.2rem;
+  }
+  
+  .notlarim-liste {
+    max-height: 500px;
+    padding: 25px;
+  }
+  
+  .notlarim-baslik {
+    font-size: 1.6rem;
+  }
+  
+  .not-item {
+    padding: 18px;
+  }
+  
+  .not-tarih {
+    font-size: 0.9rem;
+  }
+  
+  .not-ozet, .not-tam-metin {
+    font-size: 1.1rem;
+  }
+}
+
+/* Orta masaüstü ekranlar (1200px - 1399px) */
+@media screen and (min-width: 1200px) and (max-width: 1399px) {
+  .notebook-section {
+    max-width: 700px;
+    padding: 36px 40px;
+  }
+  
+  .notebook-label {
+    font-size: 1.6rem;
+  }
+  
+  .notlarim-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+  
+  .notebook-textarea {
+    height: 220px;
+    font-size: 1.2rem;
+  }
+  
+  .notebook-button {
+    padding: 14px;
+    font-size: 1.1rem;
+  }
+  
+  .notlarim-liste {
+    max-height: 400px;
+    padding: 20px;
+  }
+  
+  .notlarim-baslik {
+    font-size: 1.4rem;
+  }
+}
+
+/* Küçük masaüstü ve büyük tablet (992px - 1199px) */
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+  .notebook-section {
+    max-width: 600px;
+    padding: 30px 35px;
+  }
+  
+  .notebook-header {
+    gap: 12px;
+  }
+  
+  .notebook-label {
+    font-size: 1.4rem;
+    min-width: 180px;
+  }
+  
+  .notlarim-button {
+    padding: 9px 18px;
+    font-size: 0.9rem;
+  }
+  
+  .notebook-textarea {
+    height: 200px;
+    font-size: 1.1rem;
+  }
+  
+  .notebook-button {
+    padding: 12px;
+    font-size: 1rem;
+  }
+  
+  .notlarim-liste {
+    max-height: 350px;
+    padding: 18px;
+  }
+  
+  .notlarim-baslik {
+    font-size: 1.3rem;
+  }
+  
+  .not-item {
+    padding: 14px;
+  }
+}
+
+/* Orta tablet (768px - 991px) */
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .notebook-section {
+    max-width: 500px;
+    padding: 25px 30px;
+  }
+  
+  .notebook-header {
+    gap: 10px;
+  }
+  
+  .notebook-label {
+    font-size: 1.3rem;
+    min-width: 160px;
+  }
+  
+  .notlarim-button {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+  
+  .notebook-textarea {
+    height: 180px;
+    font-size: 1rem;
+  }
+  
+  .notebook-button {
+    padding: 11px;
+    font-size: 0.95rem;
+  }
+  
+  .notlarim-liste {
+    max-height: 300px;
+    padding: 16px;
+  }
+  
+  .notlarim-baslik {
+    font-size: 1.2rem;
+  }
+  
+  .not-item {
+    padding: 13px;
+  }
+  
+  .not-tarih {
+    font-size: 0.75rem;
+  }
+  
+  .not-ozet, .not-tam-metin {
+    font-size: 0.95rem;
+  }
+}
+
+/* Küçük tablet (576px - 767px) */
+@media screen and (min-width: 576px) and (max-width: 767px) {
+  .notebook-section {
+    max-width: 450px;
+    padding: 20px 25px;
+  }
+  
+  .notebook-header {
+    gap: 8px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .notebook-label {
+    font-size: 1.2rem;
+    min-width: auto;
+    margin-bottom: 5px;
+  }
+  
+  .notlarim-button {
+    padding: 7px 14px;
+    font-size: 0.8rem;
+  }
+  
+  .notebook-textarea {
+    height: 160px;
+    font-size: 0.9rem;
+  }
+  
+  .notebook-button {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+  
+  .notlarim-liste {
+    max-height: 250px;
+    padding: 14px;
+  }
+  
+  .notlarim-baslik {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+  
+  .not-item {
+    padding: 12px;
+    margin-bottom: 10px;
+  }
+  
+  .not-tarih {
+    font-size: 0.7rem;
+  }
+  
+  .not-ozet, .not-tam-metin {
+    font-size: 0.85rem;
+  }
+  
+  .not-sil-btn {
+    width: 22px;
+    height: 22px;
+    font-size: 11px;
+  }
+}
+
+/* Büyük telefon (480px - 575px) */
+@media screen and (min-width: 480px) and (max-width: 575px) {
+  .notebook-section {
+    max-width: 400px;
+    padding: 18px 22px;
+  }
+  
+  .notebook-header {
+    gap: 6px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .notebook-label {
+    font-size: 1.1rem;
+    min-width: auto;
+    margin-bottom: 4px;
+  }
+  
+  .notlarim-button {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+  }
+  
+  .notebook-textarea {
+    height: 140px;
+    font-size: 0.85rem;
+  }
+  
+  .notebook-button {
+    padding: 9px;
+    font-size: 0.85rem;
+  }
+  
+  .notlarim-liste {
+    max-height: 220px;
+    padding: 12px;
+  }
+  
+  .notlarim-baslik {
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+  
+  .not-item {
+    padding: 11px;
+    margin-bottom: 8px;
+  }
+  
+  .not-tarih {
+    font-size: 0.65rem;
+  }
+  
+  .not-ozet, .not-tam-metin {
+    font-size: 0.8rem;
+  }
+  
+  .not-sil-btn {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+}
+
+/* Orta telefon (375px - 479px) */
+@media screen and (min-width: 375px) and (max-width: 479px) {
+  .notebook-section {
+    max-width: 350px;
+    padding: 15px 20px;
+  }
+  
+  .notebook-header {
+    gap: 5px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .notebook-label {
+    font-size: 1rem;
+    min-width: auto;
+    margin-bottom: 3px;
+  }
+  
+  .notlarim-button {
+    padding: 5px 10px;
+    font-size: 0.7rem;
+  }
+  
+  .notebook-textarea {
+    height: 120px;
+    font-size: 0.8rem;
+  }
+  
+  .notebook-button {
+    padding: 8px;
+    font-size: 0.8rem;
+  }
+  
+  .notlarim-liste {
+    max-height: 180px;
+    padding: 10px;
+  }
+  
+  .notlarim-baslik {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+  }
+  
+  .not-item {
+    padding: 10px;
+    margin-bottom: 6px;
+  }
+  
+  .not-tarih {
+    font-size: 0.6rem;
+  }
+  
+  .not-ozet, .not-tam-metin {
+    font-size: 0.75rem;
+  }
+  
+  .not-sil-btn {
+    width: 18px;
+    height: 18px;
+    font-size: 9px;
+  }
+}
+
+/* Küçük telefon (320px - 374px) */
+@media screen and (min-width: 320px) and (max-width: 374px) {
+  .notebook-section {
+    max-width: 300px;
+    padding: 12px 15px;
+  }
+  
+  .notebook-header {
+    gap: 4px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .notebook-label {
+    font-size: 0.9rem;
+    min-width: auto;
+    margin-bottom: 2px;
+  }
+  
+  .notlarim-button {
+    padding: 4px 8px;
+    font-size: 0.65rem;
+  }
+  
+  .notebook-textarea {
+    height: 100px;
+    font-size: 0.75rem;
+  }
+  
+  .notebook-button {
+    padding: 7px;
+    font-size: 0.75rem;
+  }
+  
+  .notlarim-liste {
+    max-height: 150px;
+    padding: 8px;
+  }
+  
+  .notlarim-baslik {
+    font-size: 0.8rem;
+    margin-bottom: 6px;
+  }
+  
+  .not-item {
+    padding: 6px;
+    margin-bottom: 4px;
+  }
+  
+  .not-tarih {
+    font-size: 0.55rem;
+  }
+  
+  .not-ozet, .not-tam-metin {
+    font-size: 0.7rem;
+  }
+  
+  .not-sil-btn {
+    width: 16px;
+    height: 16px;
+    font-size: 8px;
+  }
+}
+
+/* Çok küçük telefon (320px altı) */
+@media screen and (max-width: 319px) {
+  .notebook-section {
+    max-width: 280px;
+    padding: 10px 12px;
+  }
+  
+  .notebook-header {
+    gap: 3px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .notebook-label {
+    font-size: 0.8rem;
+    min-width: auto;
+    margin-bottom: 2px;
+  }
+  
+  .notlarim-button {
+    padding: 3px 6px;
+    font-size: 0.6rem;
+  }
+  
+  .notebook-textarea {
+    height: 80px;
+    font-size: 0.7rem;
+  }
+  
+  .notebook-button {
+    padding: 6px;
+    font-size: 0.7rem;
+  }
+  
+  .notlarim-liste {
+    max-height: 120px;
+    padding: 6px;
+  }
+  
+  .notlarim-baslik {
+    font-size: 0.7rem;
+    margin-bottom: 6px;
+  }
+  
+  .not-item {
+    padding: 6px;
+    margin-bottom: 4px;
+  }
+  
+  .not-tarih {
+    font-size: 0.5rem;
+  }
+  
+  .not-ozet, .not-tam-metin {
+    font-size: 0.65rem;
+  }
+  
+  .not-sil-btn {
+    width: 14px;
+    height: 14px;
+    font-size: 7px;
+  }
+}
+
+/* Yatay mod optimizasyonları */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+  .notebook-section {
+    margin: 10px auto;
+    padding: 15px 20px;
+  }
+  
+  .notebook-textarea {
+    height: 80px;
+  }
+  
+  .notlarim-liste {
+    max-height: 120px;
+  }
+  
+  .not-item {
+    padding: 8px;
+    margin-bottom: 6px;
+  }
+  
+  .not-tarih {
+    font-size: 0.6rem;
+  }
+  
+  .not-ozet, .not-tam-metin {
+    font-size: 0.7rem;
+  }
+}
+
+/* Touch cihazlar için hover efektlerini devre dışı bırak */
+@media (hover: none) and (pointer: coarse) {
+  .notlarim-button:hover,
+  .notebook-button:hover,
+  .not-item:hover,
+  .not-sil-btn:hover {
+    transform: none;
+  }
+  
+  .not-item:hover {
+    transform: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  
+  .not-sil-btn {
+    opacity: 1;
+  }
+}
+
+/* Yüksek DPI ekranlar için */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .notebook-section {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .not-item {
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
   }
 }
 

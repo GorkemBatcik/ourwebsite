@@ -88,13 +88,24 @@
         </div>
         <!-- Not defteri kutusu alt kısımda -->
         <div id="not-defteri-bolge" class="notebook-section">
-          <label for="notDefteri" class="notebook-label">
-            Sevgiline bir not bırak ✍️
-          </label>
+          <div class="notebook-header">
+            <label for="notDefteri" class="notebook-label">
+              Sevgiline bir not bırak ✍️
+            </label>
+            <button id="notlarimBtn" class="notlarim-button" onclick="notlarimiGoster()">
+              📝 Notlarım
+            </button>
+          </div>
           <textarea id="notDefteri" placeholder="Buraya istediğini yazabilirsin hayatımmm..." class="notebook-textarea"></textarea>
           <button id="notKaydet" class="notebook-button" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
             💌 Kaydet
           </button>
+          
+          <!-- Notlarım listesi -->
+          <div id="notlarimListesi" class="notlarim-liste" style="display: none;">
+            <h3 class="notlarim-baslik">📚 Kaydettiğin Notlar</h3>
+            <div id="notlarimIcerik"></div>
+          </div>
         </div>    
       </div>
     </section>
