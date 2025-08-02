@@ -1,3 +1,101 @@
+// ===== DOĞUM GÜNÜ GİRİŞ EKRANI =====
+
+// Kocaman konfeti oluşturma fonksiyonu
+function createConfetti() {
+  const confettiContainer = document.getElementById('confetti-container');
+  const colors = ['#ff69b4', '#ff1493', '#ffb6c1', '#ff69b4', '#ff1493'];
+  
+  // Ekran boyutuna göre konfeti sayısını ayarla
+  let confettiCount = 50; // Varsayılan büyük ekranlar için
+  
+  if (window.innerWidth <= 479) {
+    confettiCount = 20; // Çok küçük ekranlar
+  } else if (window.innerWidth <= 767) {
+    confettiCount = 30; // Küçük ekranlar
+  } else if (window.innerWidth <= 1199) {
+    confettiCount = 40; // Orta ekranlar
+  }
+  
+  for (let i = 0; i < confettiCount; i++) {
+    const confetti = document.createElement('div');
+    confetti.className = 'confetti';
+    confetti.style.left = Math.random() * 100 + '%';
+    confetti.style.animationDelay = Math.random() * 2 + 's';
+    confetti.style.animationDuration = (Math.random() * 2 + 3) + 's';
+    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    confetti.style.width = (Math.random() * 30 + 20) + 'px';
+    confetti.style.height = (Math.random() * 30 + 20) + 'px';
+    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0%';
+    
+    confettiContainer.appendChild(confetti);
+  }
+}
+
+// Zıplayan kalpler oluşturma fonksiyonu
+function createHearts() {
+  const heartsContainer = document.getElementById('hearts-container');
+  
+  // Ekran boyutuna göre kalp sayısını ayarla
+  let heartCount = 15; // Varsayılan büyük ekranlar için
+  
+  if (window.innerWidth <= 479) {
+    heartCount = 8; // Çok küçük ekranlar
+  } else if (window.innerWidth <= 767) {
+    heartCount = 10; // Küçük ekranlar
+  } else if (window.innerWidth <= 1199) {
+    heartCount = 12; // Orta ekranlar
+  }
+  
+  for (let i = 0; i < heartCount; i++) {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.innerHTML = '💖';
+    heart.style.left = Math.random() * 100 + '%';
+    heart.style.animationDelay = Math.random() * 3 + 's';
+    heart.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
+    
+    heartsContainer.appendChild(heart);
+  }
+}
+
+// Giriş ekranını kontrol et
+function checkBirthdayIntro() {
+  const birthdayIntro = document.getElementById('birthday-intro');
+  const mainContent = document.getElementById('main-content');
+  
+  // Eğer yatay modda ise giriş ekranını göster (her seferinde)
+  if (window.innerWidth > window.innerHeight) {
+    birthdayIntro.style.display = 'flex';
+    mainContent.style.display = 'none';
+    createConfetti();
+    createHearts();
+    
+    // 10 saniye sonra otomatik kapan
+    setTimeout(() => {
+      enterWebsite();
+    }, 10000);
+  } else {
+    // Portrait modda giriş ekranını gizle
+    birthdayIntro.style.display = 'none';
+    mainContent.style.display = 'block';
+  }
+}
+
+// Giriş fonksiyonu (otomatik veya manuel)
+function enterWebsite() {
+  const birthdayIntro = document.getElementById('birthday-intro');
+  const mainContent = document.getElementById('main-content');
+  
+  // Giriş ekranını gizle ve ana içeriği göster
+  birthdayIntro.style.display = 'none';
+  mainContent.style.display = 'block';
+  
+  // Sayfa yüklendiğinde çalışacak fonksiyonları çağır
+  if (typeof window.onload === 'function') {
+    window.onload();
+  }
+}
+
 // Yatay mod zorlaması ve algılama
 function checkOrientation() {
   if (window.innerHeight > window.innerWidth) {
@@ -73,15 +171,26 @@ function hideOrientationWarning() {
 
 // Sayfa yüklendiğinde ve yön değiştiğinde kontrol et
 window.addEventListener('load', function() {
+  checkBirthdayIntro();
   checkOrientation();
 });
+
 window.addEventListener('resize', function() {
+  checkBirthdayIntro();
   checkOrientation();
 });
+
 window.addEventListener('orientationchange', function() {
   setTimeout(function() {
+    checkBirthdayIntro();
     checkOrientation();
   }, 100);
+});
+
+// Sayfa yüklendiğinde giriş ekranını kontrol et
+document.addEventListener('DOMContentLoaded', function() {
+  // Sayfa yenilendiğinde de giriş ekranını göster
+  checkBirthdayIntro();
 });
 
 function tarihFarki(baslangic) {
@@ -137,6 +246,7 @@ window.onload = function () {
   }
   siirleriYenidenYaz();
   checkOrientation(); // Sayfa yüklendiğinde yön kontrolü
+  sayaçGuncelle(); // Sayaç güncelle
 };
 
 function formuGoster() {

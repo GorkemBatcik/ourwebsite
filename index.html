@@ -9,101 +9,123 @@
 </head>
 <body>
 
-  <!-- 1. GİRİŞ EKRANI -->
-  <section class="hero">
-    <img src="fotolar/foto1.jpeg"   alt="Giriş Foto" class="hero-image" />
-
-    <div class="hero-text sol-ust">
-      <p class="date-label">Çıktığımız gün</p>
-      <h3 class="date-value">22 Ekim 2024</h3>
-    </div>
-
-    <div class="hero-text orta-sol" style="padding-left: 60px; margin-top: 300px;">
-      <h1 class="fancy-title hero-title">
-        Görkemişko💞<br>Berilişko
-      </h1>
-      <p class="fancy-subtitle hero-subtitle">
-        Doğum günün kutlu olsun kelebeğim <br>Seni çooook seviyorum💖<br>Nice mutu beraber yıllara hayatımmm
-      </p>
-    </div>
-
-    <div class="hero-text sag-alt" style="padding-right: 50px; margin-bottom: 30px; text-align: right; font-size: 1.5rem; color: white;">
-      <input type="file" id="photoUpload" style="display:none" multiple>
-      <button onclick="document.getElementById('photoUpload').click()" style="
-        font-size: 2.6rem;
-        padding: 28px 60px;
-        border-radius: 16px;
-        background: linear-gradient(90deg, #ff69b4 60%, #ffb6c1 100%);
-        color: white;
-        font-weight: 900;
-        font-style: italic;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-        border: none;
-        box-shadow: 4px 4px 18px #0008;
-        cursor: pointer;
-        transition: transform 0.2s;
-      "
-        onmouseover="this.style.transform='scale(1.08)'"
-        onmouseout="this.style.transform='scale(1)'"
-      >
-        FOTO YÜKLE
-      </button>
-    </div>
-  </section>
-
-  <!-- 2. FOTO + SAYAÇ -->
-  <section class="half-half">
-    <div class="left-image">
-      <img src="fotolar/foto5.jpeg" alt="Fotoğraf 2" class="half-image" />
-    </div>
-    <div class="right-content">
-      <!-- Sayaç kutusu üstte -->
-      <div class="counter-box">
-        <span class="counter-label">Birlikte geçen günlerimiz</span><br>
-        <span id="sayac" class="counter-value">Yükleniyor...</span>
-        <div class="counter-date">22 Ekim 2024'ten beri</div>
-        <div class="counter-love">Sana çoooook aşığımmm 💖</div>
+  <!-- DOĞUM GÜNÜ GİRİŞ EKRANI -->
+  <div id="birthday-intro" class="birthday-intro">
+    <div class="birthday-content">
+      <div class="birthday-title">
+        <span class="birthday-text">DOĞUM GÜNÜN</span>
+        <span class="birthday-text">KUTLU OLSUN</span>
       </div>
-      <!-- Not defteri kutusu alt kısımda -->
-      <div id="not-defteri-bolge" class="notebook-section">
-        <label for="notDefteri" class="notebook-label">
-          Sevgiline bir not bırak ✍️
-        </label>
-        <textarea id="notDefteri" placeholder="Buraya istediğini yazabilirsin hayatımmm..." class="notebook-textarea"></textarea>
-        <button id="notKaydet" class="notebook-button" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-          💌 Kaydet
-        </button>
-      </div>    
+      <div class="birthday-subtitle">
+        <span class="subtitle-text">💖 BERİLİŞKO 💖</span>
+      </div>
+      <div class="birthday-message">
+        <p>Seni çok seviyorum aşkım</p>
+        <p>Nice mutlu yıllara hayatım</p>
+      </div>
     </div>
+    <div id="confetti-container" class="confetti-container"></div>
+    <div id="hearts-container" class="hearts-container"></div>
+  </div>
+
+  <!-- ANA İÇERİK -->
+  <div id="main-content" class="main-content" style="display: none;">
+
+    <!-- 1. GİRİŞ EKRANI -->
+    <section class="hero">
+      <img src="fotolar/foto1.jpeg"   alt="Giriş Foto" class="hero-image" />
+
+      <div class="hero-text sol-ust">
+        <p class="date-label">Çıktığımız gün</p>
+        <h3 class="date-value">22 Ekim 2024</h3>
+      </div>
+
+      <div class="hero-text orta-sol" style="padding-left: 60px; margin-top: 300px;">
+        <h1 class="fancy-title hero-title">
+          Görkemişko💞<br>Berilişko
+        </h1>
+        <p class="fancy-subtitle hero-subtitle">
+          Doğum günün kutlu olsun kelebeğim <br>Seni çooook seviyorum💖<br>Nice mutu beraber yıllara hayatımmm
+        </p>
+      </div>
+
+      <div class="hero-text sag-alt" style="padding-right: 50px; margin-bottom: 30px; text-align: right; font-size: 1.5rem; color: white;">
+        <input type="file" id="photoUpload" style="display:none" multiple>
+        <button onclick="document.getElementById('photoUpload').click()" style="
+          font-size: 2.6rem;
+          padding: 28px 60px;
+          border-radius: 16px;
+          background: linear-gradient(90deg, #ff69b4 60%, #ffb6c1 100%);
+          color: white;
+          font-weight: 900;
+          font-style: italic;
+          letter-spacing: 3px;
+          text-transform: uppercase;
+          border: none;
+          box-shadow: 4px 4px 18px #0008;
+          cursor: pointer;
+          transition: transform 0.2s;
+        "
+          onmouseover="this.style.transform='scale(1.08)'"
+          onmouseout="this.style.transform='scale(1)'"
+        >
+          FOTO YÜKLE
+        </button>
+      </div>
+    </section>
+
+    <!-- 2. FOTO + SAYAÇ -->
+    <section class="half-half">
+      <div class="left-image">
+        <img src="fotolar/foto5.jpeg" alt="Fotoğraf 2" class="half-image" />
+      </div>
+      <div class="right-content">
+        <!-- Sayaç kutusu üstte -->
+        <div class="counter-box">
+          <span class="counter-label">Birlikte geçen günlerimiz</span><br>
+          <span id="sayac" class="counter-value">Yükleniyor...</span>
+          <div class="counter-date">22 Ekim 2024'ten beri</div>
+          <div class="counter-love">Sana çoooook aşığımmm 💖</div>
+        </div>
+        <!-- Not defteri kutusu alt kısımda -->
+        <div id="not-defteri-bolge" class="notebook-section">
+          <label for="notDefteri" class="notebook-label">
+            Sevgiline bir not bırak ✍️
+          </label>
+          <textarea id="notDefteri" placeholder="Buraya istediğini yazabilirsin hayatımmm..." class="notebook-textarea"></textarea>
+          <button id="notKaydet" class="notebook-button" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+            💌 Kaydet
+          </button>
+        </div>    
+      </div>
+    </section>
+
+    <!-- 3. ŞİİRLER -->
+  <section class="poems" id="siirSayfasi">
+    <h2 class="poem-title">Berilişko Şiirleri</h2>
+
+    <div id="siirGrid"></div>
+
+    <div class="ekle-alani">
+    <button class="form-ac-button" onclick="formuGoster()">+ Yeni Şiir Ekle</button>
+
+    <div id="siirFormu" class="siir-form-kutu" style="display: none;">
+      <input type="text" id="siirBaslik" placeholder="Şiir Başlığı">
+      <textarea id="siirIcerik" placeholder="Şiirini buraya yaz..."></textarea>
+      <button class="kaydet-btn" onclick="siirEkle()">Kaydet</button>
+    </div>
+  </div>
   </section>
 
-  <!-- 3. ŞİİRLER -->
-<section class="poems" id="siirSayfasi">
-  <h2 class="poem-title">Berilişko Şiirleri</h2>
+  <!-- 4. Fotoğraf - geçişli -->
+  <section class="animated-image" style="background-image: url('fotolar/foto3.jpeg');"
+  ></section>
 
-  <div id="siirGrid"></div>
 
-  <div class="ekle-alani">
-  <button class="form-ac-button" onclick="formuGoster()">+ Yeni Şiir Ekle</button>
+  <!-- 5. Fotoğraf - geçişli -->
+  <section class="animated-image" style="background-image: url('fotolar/ foto4.jpeg');"></section>
 
-  <div id="siirFormu" class="siir-form-kutu" style="display: none;">
-    <input type="text" id="siirBaslik" placeholder="Şiir Başlığı">
-    <textarea id="siirIcerik" placeholder="Şiirini buraya yaz..."></textarea>
-    <button class="kaydet-btn" onclick="siirEkle()">Kaydet</button>
   </div>
-</div>
-</section>
-
-<!-- 4. Fotoğraf - geçişli -->
-<section class="animated-image" style="background-image: url('fotolar/foto3.jpeg');"
-></section>
-
-
-<!-- 5. Fotoğraf - geçişli -->
-<section class="animated-image" style="background-image: url('fotolar/ foto4.jpeg');"></section>
-
-  
 
   <script src="script.js"></script>
 </body>
