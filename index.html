@@ -62,86 +62,28 @@
   </section>
 
   <!-- 2. FOTO + SAYAÇ -->
-  <section class="half-half" style="display: flex; flex-direction: row; height: 100vh; background: #ffe0f0;">
-    <div class="left-image" style="width: 50%; display: flex; align-items: center; justify-content: center; background: black; height: 100%; flex-shrink: 0;">
-      <img src="fotolar/foto5.jpeg"   alt="Fotoğraf 2"
-           style="width: 80%; aspect-ratio: 1/1; object-fit: cover; border-radius: 10px; margin-top: 0;" />
+  <section class="half-half">
+    <div class="left-image">
+      <img src="fotolar/foto5.jpeg" alt="Fotoğraf 2" class="half-image" />
     </div>
-    <div style="width: 50%; display: flex; flex-direction: column; justify-content: space-between; align-items: center; background: #fce4ec; height: 100%; position: relative; flex-shrink: 0;">
+    <div class="right-content">
       <!-- Sayaç kutusu üstte -->
-      <div style="
-        margin-top: 40px;
-        background: rgba(255, 105, 180, 0.85);
-        color: white;
-        padding: 32px 48px;
-        border-radius: 18px;
-        box-shadow: 0 8px 32px #0005;
-        font-size: 2rem;
-        font-weight: bold;
-        letter-spacing: 1px;
-        border: 2px solid #fff3;
-        backdrop-filter: blur(2px);
-        text-align: center;
-        min-width: 320px;
-        margin-right: 20px;
-      ">
-        <span style="font-size: 1.2rem; font-weight: normal; opacity: 0.8;">Birlikte geçen günlerimiz</span><br>
-        <span id="sayac" style="font-size: 2.5rem; font-weight: 900; letter-spacing: 2px;">Yükleniyor...</span>
-        <div style="margin-top: 8px; font-size: 1rem; opacity: 0.7;">22 Ekim 2024'ten beri</div>
-        <div style="margin-top: 24px; font-size: 2rem; font-weight: 700; color: #fff;">Sana çoooook aşığımmm 💖</div>
+      <div class="counter-box">
+        <span class="counter-label">Birlikte geçen günlerimiz</span><br>
+        <span id="sayac" class="counter-value">Yükleniyor...</span>
+        <div class="counter-date">22 Ekim 2024'ten beri</div>
+        <div class="counter-love">Sana çoooook aşığımmm 💖</div>
       </div>
-      <!-- Not defteri kutusu alt kısımda ve daha büyük -->
-        <div id="not-defteri-bolge" style="
-    margin: 40px auto;
-    padding: 36px 40px;
-    max-width: 700px; 
-    background: linear-gradient(135deg, #fffde7, #fff9c4);
-    border-radius: 20px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  ">
-    <label for="notDefteri" style="
-      font-size: 1.6rem;
-      font-weight: bold;
-      color: #d4af37;
-      margin-bottom: 8px;
-      text-align: center;
-    ">
-      Sevgiline bir not bırak ✍️
-    </label>
-
-<textarea id="notDefteri" placeholder="Buraya istediğini yazabilirsin hayatımmm..." style="
-  width: 100%;
-  height: 220px;
-  border: 2px solid #fce68e;
-  border-radius: 14px;
-  background: #fffef5;
-  font-size: 1.2rem;
-  line-height: 1.6;
-  resize: vertical;
-  color: #444;
-  box-shadow: inset 0 1px 4px rgba(0,0,0,0.05);
-  transition: box-shadow 0.3s ease;
-  font-family: 'Segoe UI', sans-serif;
-"></textarea>
-
-    <button id="notKaydet" style="
-      padding: 14px;
-      font-size: 1.1rem;
-      font-weight: bold;
-      background: linear-gradient(90deg, #ffe066, #ffd54f);
-      color: #5a4500;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: background 0.2s ease, transform 0.1s ease;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    " onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-      💌 Kaydet
-    </button>
-  </div>    
+      <!-- Not defteri kutusu alt kısımda -->
+      <div id="not-defteri-bolge" class="notebook-section">
+        <label for="notDefteri" class="notebook-label">
+          Sevgiline bir not bırak ✍️
+        </label>
+        <textarea id="notDefteri" placeholder="Buraya istediğini yazabilirsin hayatımmm..." class="notebook-textarea"></textarea>
+        <button id="notKaydet" class="notebook-button" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+          💌 Kaydet
+        </button>
+      </div>    
     </div>
   </section>
 
