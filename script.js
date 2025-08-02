@@ -45,10 +45,10 @@ function checkBirthdayIntro() {
       mainContent.style.display = 'none';
       createHearts();
       
-      // 10 saniye sonra otomatik kapan
+      // 2 saniye sonra otomatik kapan
       setTimeout(() => {
         enterWebsite();
-      }, 10000);
+      }, 2000);
     } else {
       // Daha önce giriş yapılmışsa direkt ana içeriği göster
       birthdayIntro.style.display = 'none';
