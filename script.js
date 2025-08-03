@@ -45,10 +45,10 @@ function checkBirthdayIntro() {
       mainContent.style.display = 'none';
       createHearts();
       
-      // 2 saniye sonra otomatik kapan
+      // 10 saniye sonra otomatik kapan
       setTimeout(() => {
         enterWebsite();
-      }, 2000);
+      }, 10000);
     } else {
       // Daha önce giriş yapılmışsa direkt ana içeriği göster
       birthdayIntro.style.display = 'none';
@@ -706,34 +706,231 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// Kullanıcının yüklediği fotoğrafları tam ekran göstermek için:
-document.addEventListener("DOMContentLoaded", () => {
-  const photoInput = document.getElementById("photoUpload");
+// Firebase'den fotoğrafları yükle
+async function fotograflariFirebaseYukle() {
+  try {
+    const { collection, getDocs, query, orderBy } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+    const fotograflarRef = collection(window.db, "fotograflar");
+    
+    // Tarihe göre en yeni en üstte olacak şekilde sırala
+    const q = query(fotograflarRef, orderBy("tarih", "desc"));
+    const querySnapshot = await getDocs(q);
+    
+    const fotograflar = [];
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      fotograflar.push({
+        id: doc.id,
+        ...data
+      });
+    });
+    
+    console.log(`${fotograflar.length} fotoğraf Firebase'den yüklendi`);
+    return fotograflar;
+  } catch (error) {
+    console.error("Fotoğraflar yüklenirken hata:", error);
+    return [];
+  }
+}
 
-  // Yüklü fotoğrafları localStorage'tan getir ve göster
-  const storedPhotos = JSON.parse(localStorage.getItem("uploadedPhotos")) || [];
-  storedPhotos.forEach((photoData, index) => {
-    createAnimatedImageSection(photoData.url, photoData.id, index);
+// Firebase'e fotoğraf kaydet
+async function fotografFirebaseKaydet(imageUrl, fileName) {
+  try {
+    const { collection, addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+    const fotograflarRef = collection(window.db, "fotograflar");
+    
+    const yeniFotograf = {
+      url: imageUrl,
+      dosyaAdi: fileName,
+      tarih: serverTimestamp()
+    };
+    
+    const docRef = await addDoc(fotograflarRef, yeniFotograf);
+    return docRef.id;
+  } catch (error) {
+    console.error("Fotoğraf kaydedilirken hata:", error);
+    throw error;
+  }
+}
+
+// Firebase'den fotoğraf sil
+async function fotografFirebaseSil(fotografId) {
+  try {
+    const { doc, deleteDoc } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+    const fotografRef = doc(window.db, "fotograflar", fotografId);
+    await deleteDoc(fotografRef);
+  } catch (error) {
+    console.error("Fotoğraf silinirken hata:", error);
+    throw error;
+  }
+}
+
+// Mevcut bölüme silme butonu ekle
+function addDeleteButtonToSection(section, photoId) {
+  // Eğer zaten silme butonu varsa ekleme
+  if (section.querySelector('.photo-delete-btn')) return;
+  
+  const deleteButton = document.createElement("button");
+  deleteButton.innerHTML = "🗑️";
+  deleteButton.className = "photo-delete-btn";
+  deleteButton.style.cssText = `
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 0, 0, 0.3);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 999999999;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: scale(0.8);
+  `;
+
+  // Fotoğraf üzerine gelince silme butonunu göster
+  section.addEventListener("mouseenter", function() {
+    deleteButton.style.setProperty("opacity", "1", "important");
+    deleteButton.style.setProperty("transform", "scale(1)", "important");
+    deleteButton.style.setProperty("background", "transparent", "important");
   });
 
+  section.addEventListener("mouseleave", function() {
+    deleteButton.style.setProperty("opacity", "0", "important");
+    deleteButton.style.setProperty("transform", "scale(0.8)", "important");
+    deleteButton.style.setProperty("background", "transparent", "important");
+  });
+
+  // Silme butonu hover efektleri
+  deleteButton.addEventListener("mouseenter", function() {
+    this.style.setProperty("background", "transparent", "important");
+    this.style.setProperty("transform", "scale(1.1)", "important");
+    this.style.setProperty("box-shadow", "0 4px 12px rgba(0, 0, 0, 0.4)", "important");
+  });
+
+  deleteButton.addEventListener("mouseleave", function() {
+    this.style.setProperty("background", "transparent", "important");
+    this.style.setProperty("transform", "scale(1)", "important");
+    this.style.setProperty("box-shadow", "0 2px 8px rgba(0, 0, 0, 0.2)", "important");
+  });
+
+  // Silme fonksiyonu
+  deleteButton.addEventListener("click", async function() {
+    if (confirm("Bu fotoğrafı silmek istediğine emin misin? ☹️")) {
+      try {
+        // Küçülerek kaybolma animasyonu
+        section.style.transition = "all 0.5s ease";
+        section.style.transform = "scale(0.1)";
+        section.style.opacity = "0";
+        section.style.filter = "blur(20px)";
+        
+        // Animasyon bitince Firebase'den sil
+        setTimeout(async () => {
+          try {
+            await fotografFirebaseSil(photoId);
+            // Varsayılan fotoğrafa geri dön
+            section.style.backgroundImage = section.id === 'foto3-section' ? 
+              "url('fotolar/foto3.jpeg')" : "url('fotolar/foto4.jpeg')";
+            section.style.transform = "scale(1)";
+            section.style.opacity = "1";
+            section.style.filter = "blur(0)";
+            section.removeAttribute('data-photo-id');
+            deleteButton.remove();
+          } catch (error) {
+            alert("Fotoğraf silinirken hata oluştu: " + error.message);
+          }
+        }, 500);
+      } catch (error) {
+        alert("Fotoğraf silinirken hata oluştu: " + error.message);
+      }
+    }
+  });
+
+  section.appendChild(deleteButton);
+}
+
+// Kullanıcının yüklediği fotoğrafları Firebase'den yükle ve göster
+document.addEventListener("DOMContentLoaded", async () => {
+  const photoInput = document.getElementById("photoUpload");
+
+  // Firebase'den fotoğrafları yükle ve göster
+  try {
+    const fotograflar = await fotograflariFirebaseYukle();
+    
+    // İlk 2 fotoğrafı 3. ve 4. bölümlere yerleştir (varsa)
+    if (fotograflar.length >= 1) {
+      const foto3Section = document.getElementById('foto3-section');
+      if (foto3Section) {
+        foto3Section.style.backgroundImage = `url('${fotograflar[0].url}')`;
+        foto3Section.dataset.photoId = fotograflar[0].id;
+        // Silme butonu ekle
+        addDeleteButtonToSection(foto3Section, fotograflar[0].id);
+      }
+    }
+    
+    if (fotograflar.length >= 2) {
+      const foto4Section = document.getElementById('foto4-section');
+      if (foto4Section) {
+        foto4Section.style.backgroundImage = `url('${fotograflar[1].url}')`;
+        foto4Section.dataset.photoId = fotograflar[1].id;
+        // Silme butonu ekle
+        addDeleteButtonToSection(foto4Section, fotograflar[1].id);
+      }
+    }
+    
+    // Kalan fotoğrafları yeni bölümler olarak ekle
+    fotograflar.slice(2).forEach((fotograf, index) => {
+      createAnimatedImageSection(fotograf.url, fotograf.id, index + 2);
+    });
+  } catch (error) {
+    console.error("Fotoğraflar yüklenirken hata:", error);
+  }
+
   if (photoInput) {
-    photoInput.addEventListener("change", function (event) {
+    photoInput.addEventListener("change", async function (event) {
       const files = event.target.files;
       if (!files || files.length === 0) return;
 
-      const stored = JSON.parse(localStorage.getItem("uploadedPhotos")) || [];
-
-      Array.from(files).forEach(file => {
+      Array.from(files).forEach(async file => {
         const reader = new FileReader();
-        reader.onload = function (e) {
+        reader.onload = async function (e) {
           const imageUrl = e.target.result;
-          const photoId = Date.now() + Math.random(); // Benzersiz ID oluştur
-
-          createAnimatedImageSection(imageUrl, photoId, stored.length);
-
-          // Fotoğrafı kaydet
-          stored.push({ url: imageUrl, id: photoId });
-          localStorage.setItem("uploadedPhotos", JSON.stringify(stored));
+          
+          try {
+            // Firebase'e kaydet
+            const fotografId = await fotografFirebaseKaydet(imageUrl, file.name);
+            
+            // Mevcut fotoğrafları kontrol et ve 3. veya 4. bölüme yerleştir
+            const fotograflar = await fotograflariFirebaseYukle();
+            
+            if (fotograflar.length === 1) {
+              // İlk fotoğraf - 3. bölüme yerleştir
+              const foto3Section = document.getElementById('foto3-section');
+              if (foto3Section) {
+                foto3Section.style.backgroundImage = `url('${imageUrl}')`;
+                foto3Section.dataset.photoId = fotografId;
+                addDeleteButtonToSection(foto3Section, fotografId);
+              }
+            } else if (fotograflar.length === 2) {
+              // İkinci fotoğraf - 4. bölüme yerleştir
+              const foto4Section = document.getElementById('foto4-section');
+              if (foto4Section) {
+                foto4Section.style.backgroundImage = `url('${imageUrl}')`;
+                foto4Section.dataset.photoId = fotografId;
+                addDeleteButtonToSection(foto4Section, fotografId);
+              }
+            } else {
+              // 3. ve sonraki fotoğraflar - yeni bölüm olarak ekle
+              createAnimatedImageSection(imageUrl, fotografId, fotograflar.length - 1);
+            }
+            
+          } catch (error) {
+            alert("Fotoğraf yüklenirken bir hata oluştu: " + error.message);
+          }
         };
         reader.readAsDataURL(file);
       });
@@ -807,25 +1004,31 @@ document.addEventListener("DOMContentLoaded", () => {
       this.style.setProperty("box-shadow", "0 2px 8px rgba(0, 0, 0, 0.2)", "important");
     });
 
-    // Silme fonksiyonu - küçülerek kaybolma efekti
-    deleteButton.addEventListener("click", function() {
+    // Silme fonksiyonu - Firebase'den sil
+    deleteButton.addEventListener("click", async function() {
       if (confirm("Bu fotoğrafı silmek istediğine emin misin? ☹️")) {
-        // Küçülerek kaybolma animasyonu
-        newSection.style.transition = "all 0.5s ease";
-        newSection.style.transform = "scale(0.1)";
-        newSection.style.opacity = "0";
-        newSection.style.filter = "blur(20px)";
-        
-        // Animasyon bitince DOM'dan kaldır
-        setTimeout(() => {
-          // localStorage'dan fotoğrafı kaldır
-          const stored = JSON.parse(localStorage.getItem("uploadedPhotos")) || [];
-          const updatedStored = stored.filter(photo => photo.id !== photoId);
-          localStorage.setItem("uploadedPhotos", JSON.stringify(updatedStored));
+        try {
+          // Küçülerek kaybolma animasyonu
+          newSection.style.transition = "all 0.5s ease";
+          newSection.style.transform = "scale(0.1)";
+          newSection.style.opacity = "0";
+          newSection.style.filter = "blur(20px)";
           
-          // DOM'dan fotoğrafı ve butonunu kaldır
-          newSection.remove();
-        }, 500);
+          // Animasyon bitince DOM'dan kaldır
+          setTimeout(async () => {
+            try {
+              // Firebase'den fotoğrafı sil
+              await fotografFirebaseSil(photoId);
+              
+              // DOM'dan fotoğrafı ve butonunu kaldır
+              newSection.remove();
+            } catch (error) {
+              alert("Fotoğraf silinirken hata oluştu: " + error.message);
+            }
+          }, 500);
+        } catch (error) {
+          alert("Fotoğraf silinirken hata oluştu: " + error.message);
+        }
       }
     });
 
