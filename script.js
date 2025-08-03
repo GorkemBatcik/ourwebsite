@@ -209,40 +209,125 @@ function sayaçGuncelle() {
 
 sayaçGuncelle();
 
-// Not defteri fonksiyonu
+// Not defteri fonksiyonu - Firebase entegrasyonu
 const notDefteri = document.getElementById("notDefteri");
 const notKaydet = document.getElementById("notKaydet");
 
-// Eski sistemden yeni sisteme geçiş (bir kez çalışır)
-function eskiNotlariTasi() {
-  const eskiNot = localStorage.getItem("kullaniciNotu");
-  if (eskiNot && eskiNot.trim() !== "") {
-    // Eski notu yeni sisteme taşı
-    const yeniNot = {
-      id: Date.now(),
-      metin: eskiNot,
-      tarih: new Date().toLocaleString('tr-TR'),
-      ozet: eskiNot.length > 100 ? eskiNot.substring(0, 100) + '...' : eskiNot
-    };
-    
-    const mevcutNotlar = JSON.parse(localStorage.getItem("kullaniciNotlari")) || [];
-    mevcutNotlar.push(yeniNot);
-    localStorage.setItem("kullaniciNotlari", JSON.stringify(mevcutNotlar));
-    
-    // Eski notu sil
-    localStorage.removeItem("kullaniciNotu");
+// Seçili alıcı (varsayılan: gorkem)
+let selectedRecipient = 'gorkem';
+
+// Alıcı seçimi fonksiyonu
+function selectRecipient(recipient) {
+  selectedRecipient = recipient;
+  
+  // Butonları güncelle
+  document.getElementById('gorkemBtn').classList.remove('active');
+  document.getElementById('berilBtn').classList.remove('active');
+  
+  if (recipient === 'gorkem') {
+    document.getElementById('gorkemBtn').classList.add('active');
+  } else {
+    document.getElementById('berilBtn').classList.add('active');
   }
 }
 
-// Sayfa yüklendiğinde eski notları taşı ve textarea'yı temiz tut
+// Firebase'den notları yükle - tarihe göre sıralı
+async function notlariFirebaseYukle() {
+  try {
+    const { collection, getDocs, query, orderBy } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+    const notlarRef = collection(window.db, "notlar");
+    
+    // Tarihe göre en yeni en üstte olacak şekilde sırala
+    const q = query(notlarRef, orderBy("tarih", "desc"));
+    const querySnapshot = await getDocs(q);
+    
+    const notlar = [];
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      notlar.push({
+        id: doc.id,
+        ...data,
+        // Tarih bilgisini düzgün formatla
+        formattedTarih: data.tarih ? new Date(data.tarih.toDate()).toLocaleString('tr-TR') : 'Tarih bilgisi yok'
+      });
+    });
+    
+    console.log(`${notlar.length} not Firebase'den yüklendi`);
+    return notlar;
+  } catch (error) {
+    console.error("Notlar yüklenirken hata:", error);
+    return [];
+  }
+}
+
+// Firebase'e not kaydet
+async function notuFirebaseKaydet(notMetni) {
+  try {
+    const { collection, addDoc, doc, setDoc, serverTimestamp, getDocs, query, where } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+    const notlarRef = collection(window.db, "notlar");
+    
+    // Alıcı adını belirle
+    const aliciAdi = selectedRecipient === 'gorkem' ? 'Görkeme' : 'Berile';
+    const gonderenAdi = selectedRecipient === 'gorkem' ? 'Beril' : 'Görkem';
+    const gonderenId = selectedRecipient === 'gorkem' ? 'beril' : 'gorkem';
+    
+    // Gönderenin kaçıncı notu olduğunu bul
+    const gonderenNotlariQuery = query(notlarRef, where("gonderenId", "==", gonderenId));
+    const gonderenNotlariSnapshot = await getDocs(gonderenNotlariQuery);
+    const notSayisi = gonderenNotlariSnapshot.size + 1;
+    
+    // Özel ID oluştur: gonderenAdi + sayı
+    const ozelId = `${gonderenAdi}${notSayisi}`;
+    
+    const yeniNot = {
+      metin: notMetni,
+      tarih: serverTimestamp(),
+      ozet: notMetni.length > 100 ? notMetni.substring(0, 100) + '...' : notMetni,
+      alici: aliciAdi,
+      gonderen: gonderenAdi,
+      aliciId: selectedRecipient,
+      gonderenId: gonderenId,
+      notSayisi: notSayisi
+    };
+    
+    // Özel ID ile kaydet
+    const notDocRef = doc(notlarRef, ozelId);
+    await setDoc(notDocRef, yeniNot);
+    
+    return ozelId;
+  } catch (error) {
+    console.error("Not kaydedilirken hata:", error);
+    throw error;
+  }
+}
+
+// Firebase'den not sil
+async function notuFirebaseSil(notId) {
+  try {
+    const { doc, deleteDoc } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+    const notRef = doc(window.db, "notlar", notId);
+    await deleteDoc(notRef);
+  } catch (error) {
+    console.error("Not silinirken hata:", error);
+    throw error;
+  }
+}
+
+// Sayfa yüklendiğinde textarea'yı temiz tut ve notları hazırla
 document.addEventListener('DOMContentLoaded', function() {
-  eskiNotlariTasi();
   // Textarea'yı her zaman temiz tut
   notDefteri.value = "";
+  
+  // Firebase'den notları önceden yükle (arka planda)
+  notlariFirebaseYukle().then(notlar => {
+    console.log(`${notlar.length} not arka planda yüklendi`);
+  }).catch(error => {
+    console.error("Arka plan not yükleme hatası:", error);
+  });
 });
 
-// Kaydet butonuna tıklanınca notu sakla
-notKaydet.addEventListener("click", function () {
+// Kaydet butonuna tıklanınca notu Firebase'e kaydet
+notKaydet.addEventListener("click", async function () {
   const notMetni = notDefteri.value.trim();
   
   if (!notMetni) {
@@ -250,71 +335,83 @@ notKaydet.addEventListener("click", function () {
     return;
   }
   
-  // Mevcut notları al
-  const mevcutNotlar = JSON.parse(localStorage.getItem("kullaniciNotlari")) || [];
-  
-  // Yeni notu ekle
-  const yeniNot = {
-    id: Date.now(),
-    metin: notMetni,
-    tarih: new Date().toLocaleString('tr-TR'),
-    ozet: notMetni.length > 100 ? notMetni.substring(0, 100) + '...' : notMetni
-  };
-  
-  mevcutNotlar.push(yeniNot);
-  localStorage.setItem("kullaniciNotlari", JSON.stringify(mevcutNotlar));
-  
-  // Textarea'yı temizle
-  notDefteri.value = "";
-  
-  // Başarı mesajı
-  notKaydet.textContent = "Kaydedildi! 💌";
-  setTimeout(() => { 
-    notKaydet.textContent = "💌 Kaydet"; 
-  }, 1200);
-  
-  // Eğer notlarım listesi açıksa güncelle
-  if (document.getElementById("notlarimListesi").style.display !== "none") {
-    notlarimiGoster();
+  try {
+    // Butonu devre dışı bırak
+    notKaydet.disabled = true;
+    notKaydet.textContent = "Kaydediliyor...";
+    
+    // Firebase'e kaydet
+    await notuFirebaseKaydet(notMetni);
+    
+    // Textarea'yı temizle
+    notDefteri.value = "";
+    
+    // Başarı mesajı
+    notKaydet.textContent = "Kaydedildi! 💌";
+    setTimeout(() => { 
+      notKaydet.textContent = "💌 Kaydet"; 
+      notKaydet.disabled = false;
+    }, 1200);
+    
+    // Notlarım listesini otomatik güncelle (açıksa)
+    const notlarimListesi = document.getElementById("notlarimListesi");
+    if (notlarimListesi && notlarimListesi.style.display !== "none") {
+      await notlarimiListele();
+    }
+  } catch (error) {
+    alert("Not kaydedilirken bir hata oluştu: " + error.message);
+    notKaydet.textContent = "💌 Kaydet";
+    notKaydet.disabled = false;
   }
 });
 
 // Notlarım listesini göster/gizle
-function notlarimiGoster() {
+async function notlarimiGoster() {
   const notlarimListesi = document.getElementById("notlarimListesi");
   const notlarimBtn = document.getElementById("notlarimBtn");
   
   if (notlarimListesi.style.display === "none") {
     notlarimListesi.style.display = "block";
     notlarimBtn.textContent = "📝 Gizle";
-    notlarimiListele();
+    await notlarimiListele();
   } else {
     notlarimListesi.style.display = "none";
     notlarimBtn.textContent = "📝 Notlarım";
   }
 }
 
-// Notları listele
-function notlarimiListele() {
+// Notları Firebase'den listele
+async function notlarimiListele() {
   const notlarimIcerik = document.getElementById("notlarimIcerik");
-  const notlar = JSON.parse(localStorage.getItem("kullaniciNotlari")) || [];
   
-  if (notlar.length === 0) {
-    notlarimIcerik.innerHTML = '<div class="notlarim-bos">Henüz hiç not kaydetmemişsin 💕</div>';
-    return;
+  try {
+    // Yükleniyor mesajı
+    notlarimIcerik.innerHTML = '<div class="notlarim-bos">Notlar yükleniyor... ⏳</div>';
+    
+    const notlar = await notlariFirebaseYukle();
+    
+    if (notlar.length === 0) {
+      notlarimIcerik.innerHTML = '<div class="notlarim-bos">Henüz hiç not kaydetmemişsin 💕</div>';
+      return;
+    }
+    
+    notlarimIcerik.innerHTML = notlar.map(not => {
+      const aliciBilgisi = not.alici ? `👤 ${not.gonderen} → ${not.alici}` : '';
+      
+      return `
+        <div class="not-item" onclick="notAcKapat(this, '${not.id}')">
+          <button class="not-sil-btn" onclick="notSil(event, '${not.id}')" title="Notu sil">×</button>
+          <div class="not-tarih">📅 ${not.formattedTarih}</div>
+          ${aliciBilgisi ? `<div class="not-alici">${aliciBilgisi}</div>` : ''}
+          <div class="not-ozet">${not.ozet}</div>
+          <div class="not-tam-metin">${not.metin}</div>
+        </div>
+      `;
+    }).join('');
+  } catch (error) {
+    notlarimIcerik.innerHTML = '<div class="notlarim-bos">Notlar yüklenirken hata oluştu 😔</div>';
+    console.error("Notlar listelenirken hata:", error);
   }
-  
-  // Notları ters sırayla listele (en yeni üstte)
-  const tersNotlar = notlar.slice().reverse();
-  
-  notlarimIcerik.innerHTML = tersNotlar.map(not => `
-    <div class="not-item" onclick="notAcKapat(this, ${not.id})">
-      <button class="not-sil-btn" onclick="notSil(event, ${not.id})" title="Notu sil">×</button>
-      <div class="not-tarih">📅 ${not.tarih}</div>
-      <div class="not-ozet">${not.ozet}</div>
-      <div class="not-tam-metin">${not.metin}</div>
-    </div>
-  `).join('');
 }
 
 // Notu aç/kapat
@@ -330,20 +427,22 @@ function notAcKapat(notElement, notId) {
   notElement.classList.toggle('expanded');
 }
 
-// Notu sil
-function notSil(event, notId) {
+// Notu Firebase'den sil
+async function notSil(event, notId) {
   event.stopPropagation(); // Not açılmasını engelle
   
   if (confirm("Bu notu silmek istediğine emin misin? ☹️")) {
-    const notlar = JSON.parse(localStorage.getItem("kullaniciNotlari")) || [];
-    const guncelNotlar = notlar.filter(not => not.id !== notId);
-    localStorage.setItem("kullaniciNotlari", JSON.stringify(guncelNotlar));
-    
-    // Listeyi güncelle
-    notlarimiListele();
-    
-    // Textarea'yı her zaman temiz tut
-    notDefteri.value = "";
+    try {
+      await notuFirebaseSil(notId);
+      
+      // Listeyi güncelle
+      await notlarimiListele();
+      
+      // Textarea'yı her zaman temiz tut
+      notDefteri.value = "";
+    } catch (error) {
+      alert("Not silinirken hata oluştu: " + error.message);
+    }
   }
 }
 

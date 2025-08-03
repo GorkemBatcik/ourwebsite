@@ -760,6 +760,87 @@ button:hover {
   transform: scale(0.98);
 }
 
+/* Alıcı seçimi stilleri - şık versiyon */
+.recipient-selection-simple {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 18px;
+  position: relative;
+}
+
+.recipient-selection-simple::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ffb74d, transparent);
+  border-radius: 1px;
+}
+
+.recipient-btn-simple {
+  padding: 8px 16px;
+  border: 1.5px solid #ffb74d;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #fff8e1, #fff3e0);
+  color: #f57c00;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(255, 183, 77, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.recipient-btn-simple::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.5s ease;
+}
+
+.recipient-btn-simple:hover::before {
+  left: 100%;
+}
+
+.recipient-btn-simple:hover {
+  background: linear-gradient(135deg, #ffb74d, #ff9800);
+  color: white;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 4px 15px rgba(255, 183, 77, 0.3);
+  border-color: #ff9800;
+}
+
+.recipient-btn-simple.active {
+  background: linear-gradient(135deg, #ff9800, #f57c00);
+  color: white;
+  box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4);
+  border-color: #f57c00;
+  transform: translateY(-1px);
+}
+
+.recipient-btn-simple.active::after {
+  content: '✨';
+  position: absolute;
+  top: -8px;
+  right: -5px;
+  font-size: 0.7rem;
+  animation: sparkle 1.5s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
 .notebook-textarea {
   width: 100%;
   height: 220px;
@@ -838,6 +919,17 @@ button:hover {
   color: #888;
   margin-bottom: 8px;
   font-style: italic;
+}
+
+.not-alici {
+  font-size: 0.9rem;
+  color: #ff6b35;
+  margin-bottom: 8px;
+  font-weight: bold;
+  background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+  padding: 4px 8px;
+  border-radius: 8px;
+  display: inline-block;
 }
 
 .not-ozet {
